@@ -1,0 +1,64 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+
+  background-color: #f9f9f9;
+
+  padding: 60px 85px;
+
+  font-weight: 900;
+}
+
+.title {
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+.incomeTable {
+  border-collapse: collapse;
+
+  width: 100%;
+  text-align: left;
+}
+
+.incomeTable tr {
+  border-bottom: 1px solid #c4c4c4;
+}
+.incomeTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.incomeTable tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.incomeTable th {
+  line-height: 50px;
+}
+
+.incomeTable td {
+  border-bottom: 1px solid #c4c4c4;
+  font-weight: normal;
+
+  line-height: 75px;
+}
+
+.pending {
+  color: #f7941e;
+  font-weight: 600 !important;
+}
+
+.approved {
+  color: #0acf83;
+  font-weight: 600 !important;
+}
+
+.cancel {
+  color: #ff0742;
+  font-weight: 600 !important;
+}
+
+.attachment {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}

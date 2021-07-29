@@ -1,0 +1,156 @@
+.container {
+  width: 100%;
+  height: calc(100vh - 120px);
+  background-color: #f9f9f9;
+
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+
+  width: 785px;
+  height: 566px;
+
+  padding: 24px;
+
+  margin-top: 5%;
+
+  background-color: white;
+  border-radius: 8px;
+
+  box-shadow: 0px 0px 4px rgba(5, 5, 5, 0.08);
+
+  animation: fadein 500ms;
+}
+
+.infoSection {
+  width: calc(100% - 280px);
+}
+
+.infoSectionTitle {
+  font-size: 20px;
+  font-weight: 800;
+
+  margin-bottom: 24px;
+}
+
+.infoValue {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.changePassword {
+  font-size: 14px;
+  font-weight: 900;
+  color: #0083e2;
+}
+
+.changePassword:hover {
+  cursor: pointer;
+}
+
+.infoTitle {
+  font-size: 12px;
+  color: #8a8c90;
+}
+
+.infoWrapper {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.iconWrapper {
+  width: 36px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+}
+
+.textWrapper {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.imageWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 280px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.profileImage {
+  width: 100%;
+  height: 345px;
+  border-radius: 5px;
+  object-fit: cover;
+
+  background-color: #f9f9f9;
+}
+
+.changePhotoButton {
+  width: 100%;
+  height: 50px;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  background: #5a57ab;
+  border-radius: 5px;
+  transition: 300ms;
+  z-index: 1;
+}
+
+.changePhotoButton:hover {
+  cursor: pointer;
+  background: darkslateblue;
+}
+
+.fileInputText {
+  position: absolute;
+  width: 280px;
+  line-height: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.fileInput {
+  cursor: pointer;
+
+  position: absolute;
+
+  z-index: 5;
+  width: 280px;
+  height: 50px;
+  border: none;
+  font-size: 18px;
+  /* opacity: 1; */
+  display: none;
+  border-radius: 5px;
+  transition: 300ms;
+}
+
+.fileInput:hover {
+  cursor: pointer;
+}
