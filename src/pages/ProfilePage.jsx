@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
 // import ProfileContent from "../../components/ProfileContent";
 import { UserContext } from "../contexts/UserContext";
 // import Loading from "../../components/Loading";
 import { Redirect } from "react-router";
 import ProfileContent from "../components/ProfileContent";
 import { API, setAuthToken } from "../services/API";
+import Container from "../components/Container";
 
 const Profile = () => {
   const { state, dispatch } = useContext(UserContext);
@@ -42,10 +42,9 @@ const Profile = () => {
 
   if (state.isLogin) {
     return (
-      <>
-        <Navbar />
+      <Container>
         <ProfileContent state={state} />
-      </>
+      </Container>
     );
   } else {
     return <Redirect to="/" />;

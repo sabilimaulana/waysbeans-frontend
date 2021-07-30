@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Container from "../components/Container";
+import HomeContent from "../components/HomeContent";
 import OwnerContent from "../components/OwnerContent";
 import { UserContext } from "../contexts/UserContext";
 import { API, setAuthToken } from "../services/API";
-import { convertToRupiah } from "../utils/moneyConvert";
 
 const HomePage = () => {
   const [loading, setLoading] = useState(false);
@@ -12,8 +12,6 @@ const HomePage = () => {
   const [products, setProducts] = useState([]);
 
   const { state, dispatch } = useContext(UserContext);
-
-  const router = useHistory();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -32,10 +30,6 @@ const HomePage = () => {
     getProducts();
   }, [state]);
 
-  const handleClickProduct = (id) => {
-    router.push(`/product-detail/${id}`);
-  };
-
   // console.log(products);
   console.log("homestate", state);
   // console.log("title", state.user.listAs);
@@ -51,33 +45,7 @@ const HomePage = () => {
   }
   return (
     <Container>
-      <ul style={{ listStyle: "none" }}>
-        {products.map((product) => {
-          return (
-            <li key={product.id}>
-              <div
-                style={{
-                  // backgroundColor: "salmon",
-                  padding: "10px",
-                  width: "400px",
-                  marginBottom: "10px",
-                  borderRadius: "10px",
-                  border: "2px solid black",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  handleClickProduct(product.id);
-                }}
-              >
-                <img src={product.photo} alt="product" />
-                <h3>Name : {product.name.toUpperCase()} Beans</h3>
-                <p>Price : {convertToRupiah(product.price)}</p>
-                <p>Stock :{product.stock}</p>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+      <HomeContent products={products} />
     </Container>
   );
 };

@@ -9,13 +9,8 @@ import { UserContext } from "../../contexts/UserContext";
 
 const Signup = ({ showModal, onHide, onHere }) => {
   const [fullname, setFullname] = useState("");
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [gender, setGender] = useState("");
-  const [listAs, setListAs] = useState("");
-  const [address, setAddress] = useState("");
 
   const { dispatch } = useContext(UserContext);
 
@@ -23,15 +18,13 @@ const Signup = ({ showModal, onHide, onHere }) => {
   const [signupWarning, setSignupWarning] = useState(false);
   const [signupApiWarning, setSignupApiWarning] = useState("");
 
-  const handlePress = (e) => {
-    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-      e.preventDefault();
-    }
-  };
-
   useEffect(() => {
-    isEmail(email);
-  }, [email]);
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [showModal]);
 
   const isEmail = (email) => {
     if (email === "") {
@@ -70,13 +63,8 @@ const Signup = ({ showModal, onHide, onHere }) => {
       })
       .then(async (response) => {
         setFullname("");
-        setUsername("");
         setEmail("");
         setPassword("");
-        setPhoneNumber("");
-        setGender("");
-        setListAs("");
-        setAddress("");
 
         setEmailWarning(false);
         setSignupWarning(false);
@@ -90,8 +78,6 @@ const Signup = ({ showModal, onHide, onHere }) => {
         const user = await API.get("/user/profile", {
           headers: { Authorization: `Bearer ${userData.token}` },
         });
-
-        console.log(user.data.data);
 
         // console.log(user);
         dispatch({
@@ -107,17 +93,6 @@ const Signup = ({ showModal, onHide, onHere }) => {
         setSignupApiWarning(error.response.data.message);
         console.log(error.response.data);
       });
-
-    // console.log({
-    //   username,
-    //   password,
-    //   fullname,
-    //   email,
-    //   gender,
-    //   address,
-    //   listAs,
-    //   phoneNumber,
-    // });
   };
 
   return (
@@ -125,20 +100,8 @@ const Signup = ({ showModal, onHide, onHere }) => {
       <>
         <div className={styles.signupModal}>
           <form className={styles.signupForm}>
-            <div className={styles.centerWrapper}>
-              <p className={styles.modalTitle}>Register</p>
-            </div>
-            <label className={styles.inputLabel}>Fullname</label>
-            <input
-              className={styles.inputField}
-              type="text"
-              name="fullname"
-              id="fullname"
-              value={fullname}
-              onChange={(e) => {
-                setFullname(e.target.value);
-              }}
-            />
+            <p className={styles.modalTitle}>Register</p>
+
             {/* 
             <label className={styles.inputLabel}>Username</label>
             <input
@@ -152,121 +115,46 @@ const Signup = ({ showModal, onHide, onHere }) => {
               }}
             /> */}
 
-            <label className={styles.inputLabel}>Email</label>
             <input
               className={styles.inputField}
               style={{
                 border: emailWarning
                   ? "2px solid red"
-                  : "2px solid rgba(210, 210, 210, 0.25)",
+                  : "2px solid var(--main-font-color)",
               }}
               type="email"
               name="email"
               id="email"
+              placeholder="Email"
               autoComplete="off"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onBlur={() => isEmail(email)}
             />
 
-            <label className={styles.inputLabel}>Password</label>
             <input
               className={styles.inputField}
               type="password"
               name="password"
               id="password"
+              placeholder="Password"
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
             />
 
-            {/* <label className={styles.inputLabel}>Phone Number</label>
             <input
               className={styles.inputField}
-              type="number"
-              name="phonenumber"
-              id="phonenumber"
-              value={phoneNumber}
+              type="text"
+              name="fullname"
+              id="fullname"
+              placeholder="Full Name"
+              value={fullname}
               onChange={(e) => {
-                setPhoneNumber(e.target.value);
+                setFullname(e.target.value);
               }}
-              onKeyDown={handlePress}
-              onWheel={(e) => e.target.blur()}
             />
-
-            <label className={styles.inputLabel}>Gender</label>
-            <div className={styles.genderRadio}>
-              <div>
-                <input
-                  type="radio"
-                  value="Male"
-                  id="male"
-                  name="gender"
-                  // value={gender}
-                  onClick={() => {
-                    setGender("Male");
-                  }}
-                />
-                <label htmlFor="male">Male</label>
-              </div>
-
-              <div>
-                <input
-                  type="radio"
-                  value="Female"
-                  id="female"
-                  name="gender"
-                  // value={gender}
-                  onClick={() => {
-                    setGender("Female");
-                  }}
-                />
-                <label htmlFor="female">Female</label>
-              </div>
-            </div>
-
-            <label className={styles.inputLabel}>List as</label>
-            <div className={styles.genderRadio}>
-              <div>
-                <input
-                  type="radio"
-                  value="Tenant"
-                  id="Tenant"
-                  name="listAs"
-                  // value="Tenant"
-                  onClick={() => {
-                    setListAs("Tenant");
-                  }}
-                />
-                <label htmlFor="Tenant">Tenant</label>
-              </div>
-
-              <div>
-                <input
-                  type="radio"
-                  value="Owner"
-                  id="Owner"
-                  name="listAs"
-                  // value={gender}
-                  onClick={() => {
-                    setListAs("Owner");
-                  }}
-                />
-                <label htmlFor="Owner">Owner</label>
-              </div>
-            </div>
-
-            <label className={styles.inputLabel}>Alamat</label>
-            <textarea
-              className={styles.inputAddress}
-              name="address"
-              id="address"
-              value={address}
-              maxLength="254"
-              onChange={(e) => {
-                setAddress(e.target.value);
-              }}
-            /> */}
 
             <p className={styles.signupWarning}>{signupApiWarning}</p>
             {signupWarning && (
@@ -281,7 +169,7 @@ const Signup = ({ showModal, onHide, onHere }) => {
               onClick={handleSignup}
             />
             <div className={styles.centerWrapper}>
-              <p className={styles.signupText}>
+              <p className={styles.signinText}>
                 Already have an account ? Click
                 <label
                   className={styles.hereButton}

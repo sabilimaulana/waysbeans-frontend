@@ -1,10 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Signin.module.css";
 
-// import { users } from "../../constants/users";
 import { UserContext } from "../../contexts/UserContext";
-import axios from "axios";
 import { API, setAuthToken } from "../../services/API";
 
 const Signin = ({ showModal, onHide, onHere }) => {
@@ -14,9 +12,7 @@ const Signin = ({ showModal, onHide, onHere }) => {
     password: "",
   });
 
-  const { state, dispatch } = useContext(UserContext);
-
-  // console.log(state);
+  const { dispatch } = useContext(UserContext);
 
   const [warning, setWarning] = useState("");
 
@@ -29,8 +25,6 @@ const Signin = ({ showModal, onHide, onHere }) => {
     };
     try {
       const result = await API.post("/login", data);
-
-      // console.log(result.data.data);
 
       if (result.data.data.user.hasOwnProperty("token")) {
         const userData = result.data.data.user;
@@ -47,7 +41,6 @@ const Signin = ({ showModal, onHide, onHere }) => {
 
         console.log(user.data.data);
 
-        // console.log(user);
         dispatch({
           type: "LOGIN",
           payload: {
@@ -61,38 +54,44 @@ const Signin = ({ showModal, onHide, onHere }) => {
         setWarning(result.data.message);
       }
     } catch (error) {
+      console.log(error);
       setWarning(error.response.data.message);
       console.log(error.response.data);
-      console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [showModal]);
 
   return (
     showModal && (
       <>
         <div className={styles.signinModal}>
           <form className={styles.signinForm}>
-            <div className={styles.centerWrapper}>
-              <p className={styles.modalTitle}>Login</p>
-            </div>
-            <label className={styles.inputLabel}>Email</label>
+            <p className={styles.modalTitle}>Login</p>
             <input
               className={styles.inputField}
               type="text"
               value={userInput.email}
               name="email"
               id="email"
+              placeholder="Email"
               onChange={(e) =>
                 setUserInput({ ...userInput, email: e.target.value })
               }
             />
-            <label className={styles.inputLabel}>Password</label>
             <input
               className={styles.inputField}
               type="password"
               value={userInput.password}
               name="password"
               id="password"
+              placeholder="Password"
               onChange={(e) =>
                 setUserInput({ ...userInput, password: e.target.value })
               }

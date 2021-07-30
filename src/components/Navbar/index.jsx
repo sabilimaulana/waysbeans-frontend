@@ -4,6 +4,8 @@ import styles from "./Navbar.module.css";
 
 import brandIcon from "../../assets/brand-icon.svg";
 import manUser from "../../assets/man-user.png";
+import shoppingBasket from "../../assets/shopping-basket.svg";
+
 import { useContext, useEffect, useState } from "react";
 import Signin from "../Signin";
 import Signup from "../Signup";
@@ -12,11 +14,9 @@ import OwnerDropdown from "../OwnerDropdown";
 
 import { UserContext } from "../../contexts/UserContext";
 import FilterContext from "../../contexts/FilterContext";
-// import OwnerDropdown from "../OwnerDropdown";
+import { useHistory } from "react-router";
 
 const Navbar = () => {
-  // handleSearch, searchText,
-
   const { state } = useContext(UserContext);
 
   const { filterDispatch } = useContext(FilterContext);
@@ -28,7 +28,7 @@ const Navbar = () => {
   const [userDropdownShow, setUserDropdownShow] = useState(false);
   const [ownerDropdownShow, setOwnerDropdownShow] = useState(false);
 
-  useEffect(() => {}, [state]);
+  const router = useHistory();
 
   const handleSearch = (e) => {
     setSearchText(e.target.value);
@@ -72,13 +72,17 @@ const Navbar = () => {
               onClick={() => setOwnerDropdownShow(!ownerDropdownShow)}
             >
               {state.user.photo === "" ? (
-                <img src={manUser} alt="user" height="50px" />
+                <>
+                  <img src={manUser} alt="user" height="50px" />
+                </>
               ) : (
-                <img
-                  src={`http://localhost:8080/${state.user.photo}`}
-                  alt="user"
-                  height="50px"
-                />
+                <>
+                  <img
+                    src={`http://localhost:8080/${state.user.photo}`}
+                    alt="user"
+                    height="50px"
+                  />
+                </>
               )}
             </div>
             <OwnerDropdown
@@ -87,26 +91,39 @@ const Navbar = () => {
             />
           </>
         ) : (
-          <>
+          <div className={styles.userMenu}>
+            <img
+              src={shoppingBasket}
+              alt="cart"
+              onClick={() => {
+                router.push("/cart");
+              }}
+              className={styles.cartIcon}
+            />
+
             <div
               className={styles.user}
               onClick={() => setUserDropdownShow(!userDropdownShow)}
             >
               {state.user.photo === "" ? (
-                <img src={manUser} alt="user" height="50px" />
+                <>
+                  <img src={manUser} alt="user" height="50px" />
+                </>
               ) : (
-                <img
-                  src={`http://localhost:8080/${state.user.photo}`}
-                  alt="user"
-                  height="50px"
-                />
+                <>
+                  <img
+                    src={`http://localhost:8080/${state.user.photo}`}
+                    alt="user"
+                    height="50px"
+                  />
+                </>
               )}
             </div>
             <UserDropdown
               showDropdown={userDropdownShow}
               onHide={() => setUserDropdownShow(false)}
             />
-          </>
+          </div>
         )
       ) : (
         <div className={styles.signWrapper}>
