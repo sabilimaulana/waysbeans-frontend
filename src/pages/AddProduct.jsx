@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import AddProductPopup from "../AddProductPopup";
+import AddProductContent from "../components/AddProductContent";
+import AddProductPopup from "../components/AddProductPopup";
 import Container from "../components/Container";
 import { UserContext } from "../contexts/UserContext";
 import { API, setAuthToken } from "../services/API";
@@ -90,89 +91,94 @@ const AddProduct = () => {
 
   if (state.user.listAs === "Seller") {
     return (
-      <>
-        <Container>
-          <h2>Shipping</h2>
-          <form action="">
-            <label htmlFor="">Name</label>
-            <br />
-            <input
-              type="text"
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-              value={name}
-              required
-            />
-            <br />
-
-            <label htmlFor="">Stock</label>
-            <br />
-            <input
-              type="number"
-              onChange={(e) => {
-                setStock(e.target.value);
-              }}
-              value={stock}
-              required
-            />
-            <br />
-
-            <label htmlFor="">Price</label>
-            <br />
-            <input
-              type="number"
-              onChange={(e) => {
-                setPrice(e.target.value);
-              }}
-              value={price}
-            />
-            <br />
-
-            <label htmlFor="">Description</label>
-            <br />
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              onChange={(e) => {
-                setDescription(e.target.value);
-              }}
-              value={description}
-            ></textarea>
-
-            <br />
-
-            <label htmlFor="">Photo</label>
-            <br />
-            <input
-              type="file"
-              onChange={(e) => {
-                setRawPhoto(e.target.files[0]);
-              }}
-            />
-
-            <br />
-
-            <p style={{ color: "red" }}>{warning}</p>
-
-            <input
-              type="submit"
-              value="Add Product"
-              onClick={handleAddProduct}
-            />
-          </form>
-        </Container>
-        <AddProductPopup
-          showModal={showPopup}
-          onHide={() => {
-            setShowPopup(false);
-            router.push("/");
-          }}
-        />
-      </>
+      <Container>
+        <AddProductContent />
+      </Container>
     );
+    // return (
+    //   <>
+    //     <Container>
+    //       <h2>Shipping</h2>
+    //       <form action="">
+    //         <label htmlFor="">Name</label>
+    //         <br />
+    //         <input
+    //           type="text"
+    //           onChange={(e) => {
+    //             setName(e.target.value);
+    //           }}
+    //           value={name}
+    //           required
+    //         />
+    //         <br />
+
+    //         <label htmlFor="">Stock</label>
+    //         <br />
+    //         <input
+    //           type="number"
+    //           onChange={(e) => {
+    //             setStock(e.target.value);
+    //           }}
+    //           value={stock}
+    //           required
+    //         />
+    //         <br />
+
+    //         <label htmlFor="">Price</label>
+    //         <br />
+    //         <input
+    //           type="number"
+    //           onChange={(e) => {
+    //             setPrice(e.target.value);
+    //           }}
+    //           value={price}
+    //         />
+    //         <br />
+
+    //         <label htmlFor="">Description</label>
+    //         <br />
+    //         <textarea
+    //           name=""
+    //           id=""
+    //           cols="30"
+    //           rows="10"
+    //           onChange={(e) => {
+    //             setDescription(e.target.value);
+    //           }}
+    //           value={description}
+    //         ></textarea>
+
+    //         <br />
+
+    //         <label htmlFor="">Photo</label>
+    //         <br />
+    //         <input
+    //           type="file"
+    //           onChange={(e) => {
+    //             setRawPhoto(e.target.files[0]);
+    //           }}
+    //         />
+
+    //         <br />
+
+    //         <p style={{ color: "red" }}>{warning}</p>
+
+    //         <input
+    //           type="submit"
+    //           value="Add Product"
+    //           onClick={handleAddProduct}
+    //         />
+    //       </form>
+    //     </Container>
+    //     <AddProductPopup
+    //       showModal={showPopup}
+    //       onHide={() => {
+    //         setShowPopup(false);
+    //         router.push("/");
+    //       }}
+    //     />
+    //   </>
+    // );
   } else {
     return <h3>404</h3>;
   }

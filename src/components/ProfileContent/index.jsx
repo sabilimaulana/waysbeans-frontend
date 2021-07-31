@@ -1,13 +1,12 @@
 import styles from "./ProfileContent.module.css";
 
 import mailIcon from "../../assets/profile/mail-icon.svg";
-import brandIcon from "../../assets/brand-icon.svg";
 
 import manUser from "../../assets/man-user.png";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API } from "../../services/API";
-import { convertToRupiah } from "../../utils/moneyConvert";
+import OrderCard from "../OrderCard";
 
 const ProfileContent = ({ state }) => {
   const [changePasswordModalShow, setChangePasswordModalShow] = useState(false);
@@ -35,53 +34,6 @@ const ProfileContent = ({ state }) => {
       .catch((error) => {
         console.log(error.response);
       });
-  };
-
-  const getMonthName = (date) => {
-    const newDate = new Date(date);
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    return months[newDate.getMonth()];
-  };
-
-  const getDaysName = (date) => {
-    const newDate = new Date(date);
-    const days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-
-    return days[newDate.getDay()];
-  };
-
-  const getDate = (date) => {
-    const newDate = new Date(date);
-
-    return newDate.getDate();
-  };
-
-  const getFullYear = (date) => {
-    const newDate = new Date(date);
-
-    return newDate.getFullYear();
   };
 
   useEffect(() => {
@@ -149,60 +101,7 @@ const ProfileContent = ({ state }) => {
         <h3 className={styles.contentTitle}>My Transaction</h3>
         <div className={styles.transactionData}>
           {orders.map((order) => {
-            return (
-              <div key={order.id} className={styles.cardItem}>
-                <img
-                  src={`http://localhost:8080/${order.Product.photo}`}
-                  alt="order"
-                  className={styles.cardItemImage}
-                />
-                <div className={styles.cardItemContent}>
-                  <div className={styles.cardItemContentLeft}>
-                    <p
-                      className={styles.productName}
-                    >{`${order.Product.name.toUpperCase()} Beans`}</p>
-                    <p className={styles.date}>
-                      <strong>{getDaysName(order.createdAt)}</strong>
-                      {`, ${getDate(order.createdAt)} ${getMonthName(
-                        order.createdAt
-                      )}  ${getFullYear(order.createdAt)}`}
-                    </p>
-
-                    <p className={styles.productPrice}>
-                      Price: {convertToRupiah(order.Product.price)}
-                    </p>
-
-                    <p className={styles.orderQuantity}>
-                      Qty: {order.orderQuantity} pcs
-                    </p>
-                    <strong className={styles.totalPrice}>
-                      Total: {order.total}
-                    </strong>
-                  </div>
-
-                  <div className={styles.cardItemContentRight}>
-                    <img src={brandIcon} alt="brand" width="73" />
-                    <div className={styles.barcode}>barcode</div>
-
-                    <div className={styles.statusCard}>
-                      {order.status === "Approved" ? (
-                        <div className={styles.statusSuccess}>
-                          <p>Success</p>
-                        </div>
-                      ) : order.status === "Cancel" ? (
-                        <div className={styles.statusCancel}>
-                          <p>Cancel</p>
-                        </div>
-                      ) : (
-                        <div className={styles.statusWaitingApprove}>
-                          <p>{order.status}</p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
+            <OrderCard order={order} />;
           })}
         </div>
       </div>

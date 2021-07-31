@@ -1,0 +1,397 @@
+.content {
+  display: flex;
+  flex-direction: row;
+
+  padding: 50px 100px 0 100px;
+}
+
+.leftContent {
+  display: flex;
+  flex-direction: column;
+
+  width: 50%;
+  padding-right: 100px;
+}
+
+.rightContent {
+  display: flex;
+  flex-direction: column;
+
+  height: 80vh;
+  justify-content: center;
+
+  width: 50%;
+}
+
+.contentTitle {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 33px;
+
+  color: var(--main-font-color);
+
+  margin-bottom: 30px;
+}
+
+.inputField {
+  font-size: 18px;
+  font-weight: 800;
+  padding: 10px;
+
+  width: 100%;
+  height: 50px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+
+  background: var(--main-bg-input);
+  border: 2px solid var(--main-font-color);
+}
+
+.inputField {
+  outline: none;
+}
+
+.description {
+  box-sizing: border-box;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 10px;
+
+  width: 100%;
+  min-height: 100px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+
+  background: var(--main-bg-input);
+  border: 2px solid var(--main-font-color);
+  resize: none;
+}
+
+.inputFileWrapper {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.inputFileLabel {
+  font-size: 18px;
+  font-weight: 800;
+  padding: 10px;
+
+  width: 40%;
+  height: 50px;
+  border-radius: 5px;
+
+  background: var(--main-bg-input);
+  border: 2px solid var(--main-font-color);
+  cursor: pointer;
+}
+
+.inputIcon {
+  margin-left: -30px;
+  cursor: pointer;
+}
+
+.addProductButtonWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.addProductButton {
+  width: 40%;
+  margin: 0 50px;
+
+  height: 40px;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+
+  color: white;
+
+  background-color: var(--main-bg-button);
+
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.addProductButton:hover {
+  background-color: var(--main-hover-button);
+}
+
+.warningWrapper {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+  align-items: center;
+
+  color: red;
+
+  height: 50px;
+  width: 100%;
+}
+
+.closeIconButton {
+  width: 50px;
+  align-self: flex-end;
+  margin-right: 50px;
+
+  cursor: pointer;
+}
+
+.firstImage {
+  width: 636px;
+  height: 755px;
+
+  object-fit: cover;
+}
+
+/* .container {
+  width: 100%;
+  min-height: 100vh;
+
+  background-color: #f9f9f9;
+
+  padding: 60px 90px;
+}
+
+.title {
+  font-size: 36px;
+}
+
+.formProperty {
+  display: flex;
+  flex-direction: column;
+
+  padding: 60px 50px;
+}
+
+.inputLabel {
+  font-weight: 800;
+  font-size: 24px;
+
+  margin-left: 5px;
+  margin-bottom: 16px;
+}
+
+.inputText {
+  height: 50px;
+  border: 1px solid #b1b1b1;
+  border-radius: 5px;
+  background: rgba(196, 196, 196, 0.5);
+  font-size: 18px;
+  font-weight: 900;
+  padding: 0 10px;
+  margin-bottom: 30px;
+  text-decoration: none;
+}
+
+.inputTextarea {
+  height: 100px;
+  border: 1px solid #b1b1b1;
+  border-radius: 5px;
+  background: rgba(196, 196, 196, 0.5);
+  font-size: 18px;
+  font-weight: 900;
+  padding: 10px;
+  margin-bottom: 30px;
+  text-decoration: none;
+}
+
+.priceSection {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.priceInputSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.priceInputSection label {
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+.priceInputSection input {
+  height: 50px;
+  border: 1px solid #b1b1b1;
+  border-radius: 5px;
+  background: rgba(196, 196, 196, 0.5);
+  font-size: 18px;
+  font-weight: 900;
+  padding: 0 10px;
+  margin-bottom: 30px;
+  text-decoration: none;
+}
+
+.amenitiesWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin-bottom: 30px;
+}
+
+.amenitiesWrapper div {
+  display: flex;
+  align-items: center;
+}
+
+.amenitiesWrapper input {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.amenitiesWrapper label {
+  padding: 0 20px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.formProperty select {
+  height: 50px;
+  border: 1px solid #b1b1b1;
+  border-radius: 5px;
+  background: rgba(196, 196, 196, 0.5);
+  font-size: 18px;
+  font-weight: 900;
+  padding: 0 10px;
+  margin-bottom: 30px;
+  text-decoration: none;
+  cursor: pointer;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  z-index: 2;
+}
+
+.boxFileWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.boxFile {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  text-align: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 3px 3px 5px 1px #ccc; 
+}
+
+.boxFile input {
+  display: none;
+}
+
+.boxFile p {
+  margin-bottom: 10px;
+}
+
+.uploadField {
+  width: 200px;
+  height: 200px;
+  border: 1px dashed black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+.uploadField:hover {
+  opacity: 0.8;
+}
+
+.uploadField label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.saveButton {
+  margin: 60px auto 0 auto;
+  width: 300px;
+  height: 50px;
+  background-color: #5a57ab;
+  border-radius: 5px;
+  border: none;
+  font-size: 24px;
+  font-weight: 900;
+  color: white;
+  cursor: pointer;
+}
+
+.saveButton:hover {
+  background-color: darkslateblue;
+}
+
+.uploadedImage {
+  width: 198px;
+  height: 198px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.imagePreview {
+  position: relative;
+  display: flex;
+}
+
+.closeButton {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  opacity: 0.5;
+}
+
+.warning {
+  text-align: center;
+  position: relative;
+  color: red;
+  top: 40px;
+}
+
+.cityDropdown {
+  position: absolute;
+  right: 152px;
+  top: 466px;
+}
+
+.bedroomDropdown {
+  position: absolute;
+  right: 152px;
+  top: 987px;
+}
+
+.bathroomDropdown {
+  position: absolute;
+  right: 152px;
+  top: 1111px;
+} */

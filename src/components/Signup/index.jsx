@@ -87,6 +87,7 @@ const Signup = ({ showModal, onHide, onHere }) => {
           },
         });
 
+        document.body.style.overflow = "unset";
         onHide();
       })
       .catch(function (error) {

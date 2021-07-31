@@ -29,7 +29,7 @@ function App() {
                 <CartPage />
               </Route>
 
-              <Route exact path="/checkout/:id">
+              <Route exact path="/checkout/">
                 <CheckoutPage />
               </Route>
 

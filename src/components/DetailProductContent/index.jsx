@@ -50,14 +50,7 @@ const DetailProductContent = ({ product }) => {
             Add Cart
           </button>
         ) : (
-          <button
-            style={{
-              width: "200px",
-              height: "50px",
-              cursor: "not-allowed",
-            }}
-            disabled
-          >
+          <button className={styles.disableAddCart} disabled>
             Add Cart
           </button>
         )}

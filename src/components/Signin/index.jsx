@@ -49,6 +49,7 @@ const Signin = ({ showModal, onHide, onHere }) => {
         });
 
         onHide();
+        document.body.style.overflow = "unset";
         // window.location.reload();
       } else {
         setWarning(result.data.message);

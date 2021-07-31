@@ -1,56 +1,38 @@
 import { useContext, useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import CartContent from "../components/CartContent";
 import Container from "../components/Container";
 import { UserContext } from "../contexts/UserContext";
-import { API } from "../services/API";
-import { convertToRupiah } from "../utils/moneyConvert";
+import { API, setAuthToken } from "../services/API";
 
 const CartPage = () => {
   const router = useHistory();
 
-  const [loading, setLoading] = useState();
-  const [error, setError] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [carts, setCarts] = useState([]);
 
-  const { state } = useContext(UserContext);
-
-  const handleQuantityMinus = async (index) => {
-    try {
-      const result = await API.patch(`/cart/${carts[index].id}`, {
-        orderQuantity: +carts[index].orderQuantity - 1,
-      });
-      setCarts(result.data.dataAfterUpdated);
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
-
-  const handleQuatityPlus = async (index) => {
-    try {
-      const result = await API.patch(`/cart/${carts[index].id}`, {
-        orderQuantity: +carts[index].orderQuantity + 1,
-      });
-      setCarts(result.data.dataAfterUpdated);
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
-
-  const handleDeleteCart = async (cartId) => {
-    try {
-      const result = await API.delete(`/cart/${cartId}`);
-      setCarts(result.data.dataAfterUpdated);
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
-
-  const handleCheckout = async (cartId) => {
-    router.push(`/checkout/${cartId}`);
-    console.log("Sebuah checkout");
-  };
+  const { state, dispatch } = useContext(UserContext);
 
   useEffect(() => {
+    const getUser = async () => {
+      try {
+        const token = sessionStorage.getItem("token");
+        if (token) {
+          setAuthToken(token);
+          const user = await API.get("/user/profile");
+          dispatch({
+            type: "LOGIN",
+            payload: {
+              user: user.data.data.user,
+            },
+          });
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+
     const getCart = async () => {
       try {
         setLoading(true);
@@ -65,103 +47,21 @@ const CartPage = () => {
       }
     };
 
+    getUser();
     getCart();
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
-      <Container>
-        <div>
-          <h2>Review your order</h2>
-          {carts.map((cart, index) => {
-            console.log(cart.Product.photo);
-            return (
-              <div
-                key={cart.id}
-                style={{
-                  border: "1px solid grey",
-                  padding: "20px",
-                  marginBottom: "20px",
-                  borderRadius: "10px",
-                }}
-              >
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Picture</th>
-                      <th>Name</th>
-                      <th>Quantity</th>
-                      <th>Price</th>
-                      <th>Delete</th>
-                    </tr>
-                    <tr>
-                      <td>
-                        <img
-                          src={`http://localhost:8080/${cart.Product.photo}`}
-                          alt="cart"
-                          width="100"
-                        />
-                      </td>
-                      <td>{cart.Product.name} Beans</td>
-                      <td style={{ fontSize: "24px" }}>
-                        <button
-                          style={{ fontSize: "18px", width: "20px" }}
-                          onClick={() => {
-                            handleQuantityMinus(index);
-                          }}
-                        >
-                          -
-                        </button>
-                        {cart.orderQuantity}
-                        <button
-                          style={{ fontSize: "18px", width: "20px" }}
-                          onClick={() => {
-                            handleQuatityPlus(index);
-                          }}
-                        >
-                          +
-                        </button>
-                      </td>
-                      <td>{convertToRupiah(cart.Product.price)}</td>
-                      <td>
-                        <button onClick={() => handleDeleteCart(cart.id)}>
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  </thead>
-                </table>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Subtotal</th>
-                      <th>Quantity</th>
-                      <th>Total</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{convertToRupiah(cart.Product.price)}</td>
-                      <td> {cart.orderQuantity}</td>
-                      <td>
-                        {convertToRupiah(
-                          +cart.orderQuantity * +cart.Product.price
-                        )}
-                      </td>
-                      <td>
-                        <button onClick={() => handleCheckout(cart.id)}>
-                          Checkout
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            );
-          })}
-        </div>
-      </Container>
+      {loading && <h3>Loading</h3>}
+      {error && <h3>Error</h3>}
+      {!loading && (
+        <>
+          <Container>
+            <CartContent cartProps={carts} />
+          </Container>
+        </>
+      )}
     </>
   );
 };
