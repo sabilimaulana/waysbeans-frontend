@@ -1,4 +1,5 @@
-.cardItem {
+.cardItem,
+.cardItemInteractive {
   display: flex;
   flex-direction: row;
 
@@ -13,6 +14,16 @@
 
   align-items: center;
 }
+
+.cardItemInteractive {
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.cardItemInteractive:hover {
+  transform: scale(1.1);
+}
+
 .cardItemImage {
   width: 80px;
   height: 120px;
@@ -39,6 +50,18 @@
   color: var(--main-font-color);
 
   margin-bottom: 3px;
+}
+
+.anotherProduct {
+  font-size: 14px;
+  margin-left: 20px;
+
+  color: var(--secondary-font-color);
+}
+
+.productNameWrapper {
+  display: flex;
+  flex-direction: row;
 }
 
 .totalPrice,
@@ -75,11 +98,11 @@
   width: 60px;
   height: 60px;
 
-  border: 1px solid var(--main-font-color);
+  object-fit: cover;
 }
 
 .statusCard {
-  height: 26px;
+  height: 20px;
   width: 116px;
 
   font-weight: 500;

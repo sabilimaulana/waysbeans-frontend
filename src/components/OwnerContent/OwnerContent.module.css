@@ -5,13 +5,13 @@
   background-color: #f9f9f9;
 
   padding: 60px 85px;
-
-  font-weight: 900;
 }
 
 .title {
   font-size: 36px;
   margin-bottom: 30px;
+
+  color: var(--main-font-color);
 }
 
 .incomeTable {
@@ -19,16 +19,39 @@
 
   width: 100%;
   text-align: left;
+
+  padding-left: 10px;
+  font-family: "Nunito", sans-serif;
+}
+
+.incomeTable th,
+.incomeTable td {
+  padding-left: 10px;
+  text-align: left;
+}
+
+.incomeTable td,
+.incomeTable th {
+  border-right: 1px solid #c4c4c4;
 }
 
 .incomeTable tr {
-  border-bottom: 1px solid #c4c4c4;
+  border: 1px solid #c4c4c4;
 }
-.incomeTable tr:nth-child(even) {
+
+.incomeTable th:last-child,
+.incomeTable td:last-child {
+  text-align: center;
+}
+/* .incomeTable tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 .incomeTable tr:nth-child(odd) {
   background-color: #fff;
+} */
+
+.tabelHead {
+  background: #e5e5e5;
 }
 
 .incomeTable th {
@@ -39,7 +62,7 @@
   border-bottom: 1px solid #c4c4c4;
   font-weight: normal;
 
-  line-height: 75px;
+  line-height: 60px;
 }
 
 .pending {
@@ -61,4 +84,65 @@
   width: 40px;
   height: 40px;
   object-fit: cover;
+}
+
+.detailTransaction {
+  width: 100px;
+  height: 30px;
+
+  border: none;
+  background-color: var(--main-bg-button);
+  color: white;
+
+  font-size: 12px;
+
+  font-weight: 600;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.detailTransaction:hover {
+  background-color: var(--main-hover-button);
+}
+
+.tdAction {
+  /* display: flex;
+  flex-direction: row; */
+
+  width: 300px;
+
+  justify-content: space-between;
+}
+
+.buttonCancel,
+.buttonApprove {
+  width: 100px;
+  height: 30px;
+
+  border: none;
+
+  font-size: 12px;
+
+  font-weight: 600;
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  color: white;
+}
+
+.buttonCancel {
+  background-color: #ff0742;
+  margin-right: 20px;
+}
+.buttonCancel:hover {
+  background-color: rgba(255, 7, 66, 0.7);
+}
+
+.buttonApprove {
+  background-color: #0acf83;
+}
+.buttonApprove:hover {
+  background-color: rgba(10, 207, 131, 0.8);
 }

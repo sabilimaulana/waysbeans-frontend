@@ -5,12 +5,14 @@ import styles from "./OwnerContent.module.css";
 import axios from "axios";
 import { UserContext } from "../../contexts/UserContext";
 import { API } from "../../services/API";
+import TransactionDetailModal from "../TransactionDetailModal";
 // import billIcon from "../../assets/images/bill2-icon.svg";
 
 const OwnerContent = () => {
-  const [actionModalShow, setActionModalShow] = useState(false);
-  const [orders, setOrders] = useState([]);
-  const [focusOrder, setFocusOrder] = useState();
+  const [detailTransactionModalShow, setDetailTransactionModalShow] =
+    useState(false);
+  const [transactions, setTransactions] = useState([]);
+  const [focusTransaction, setFocusTransaction] = useState();
 
   const { state } = useContext(UserContext);
 
@@ -48,7 +50,7 @@ const OwnerContent = () => {
         // );
 
         const result = await API.get(`/transactions/`);
-        setOrders(result.data.data);
+        setTransactions(result.data.data);
         // console.log(result.data.data);
       } catch (error) {
         console.log(error.response);
@@ -78,64 +80,67 @@ const OwnerContent = () => {
 
   //   getUser();
   // }, [dispatch]);
-  console.log(orders);
+  console.log(transactions);
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Income Transaction</h1>
       <table className={styles.incomeTable}>
         <thead>
-          <tr>
+          <tr className={styles.tabelHead}>
             <th>No</th>
             <th>Name</th>
             <th>Address</th>
             <th>Zip Code</th>
-            <th>Bukti Transfer</th>
+            <th>Detail</th>
             <th>Status Payment</th>
             <th>Action</th>
           </tr>
         </thead>
 
         <tbody>
-          {orders.length > 0 ? (
-            orders.map((order, index, array) => {
-              console.log("order", order);
+          {transactions.length > 0 ? (
+            transactions.map((transaction, index, array) => {
+              console.log("transaction", transaction);
               return (
-                <tr key={order.id}>
+                <tr key={transaction.id}>
                   <td>{index + 1}</td>
-                  <td>{order.User.fullname}</td>
-                  <td>{order.address}</td>
-                  <td>{order.zipCode}</td>
+                  <td>{transaction.User.fullname}</td>
+                  <td>{transaction.address}</td>
+                  <td>{transaction.zipCode}</td>
 
                   <td>
-                    <a href={`http://localhost:8080/${order.attachment}`}>
-                      {/* <img
-                        className={styles.attachment}
-                        src={order.attachment}
-                        alt="attachment"
-                      /> */}
-                      {/* <img src={billIcon} alt="bill" width="25px" /> */}
-                      <button>Bukti</button>
-                    </a>
+                    <button
+                      onClick={() => {
+                        setDetailTransactionModalShow(true);
+                        setFocusTransaction(transaction);
+                      }}
+                      className={styles.detailTransaction}
+                    >
+                      Lihat Detail
+                    </button>
                   </td>
-                  {order.status === "Waiting Approve" ? (
-                    <td className={styles.pending}>Pending</td>
-                  ) : order.status === "Approved" ? (
+                  {transaction.status === "Waiting Approve" ? (
+                    <td className={styles.pending}>Waiting Approve</td>
+                  ) : transaction.status === "Approved" ? (
                     <td className={styles.approved}>Approved</td>
                   ) : (
-                    order.status === "Cancel" && (
+                    transaction.status === "Cancel" && (
                       <td className={styles.cancel}>Cancel</td>
                     )
                   )}
-                  <td>
-                    {order.status === "Waiting Approve" && (
+                  <td className={styles.tdAction}>
+                    {transaction.status === "Waiting Approve" && (
                       <>
                         <button
-                          style={{ marginRight: "20px" }}
-                          onClick={() => handleCancel(order.id)}
+                          className={styles.buttonCancel}
+                          onClick={() => handleCancel(transaction.id)}
                         >
                           Cancel
                         </button>
-                        <button onClick={() => handleApprove(order.id)}>
+                        <button
+                          className={styles.buttonApprove}
+                          onClick={() => handleApprove(transaction.id)}
+                        >
                           Approve
                         </button>
                       </>
@@ -153,13 +158,13 @@ const OwnerContent = () => {
           )}
         </tbody>
       </table>
-      {/* <ActionModal
-        showModal={actionModalShow}
-        orderDetail={orders[focusOrder]}
+      <TransactionDetailModal
+        showModal={detailTransactionModalShow}
+        transactionData={focusTransaction}
         onHide={() => {
-          setActionModalShow(false);
+          setDetailTransactionModalShow(false);
         }}
-      /> */}
+      />
     </div>
   );
 };

@@ -220,7 +220,7 @@ const CheckoutContent = ({ cartsProps }) => {
         </div>
         <div className={styles.rightContent}>
           {carts?.map((cart) => {
-            return <OrderCard order={cart} key={cart.id} />;
+            return <OrderCard orderCheckout={cart} key={cart.id} />;
           })}
           <div className={styles.totalWrapper}>
             <p className={styles.totalTitle}>Total : </p>
@@ -245,7 +245,7 @@ const CheckoutContent = ({ cartsProps }) => {
           setShowPopup(false);
           router.push("/");
         }}
-      />{" "}
+      />
     </>
   );
 };

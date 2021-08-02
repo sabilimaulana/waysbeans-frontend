@@ -11,7 +11,7 @@ import OrderCard from "../OrderCard";
 const ProfileContent = ({ state }) => {
   const [changePasswordModalShow, setChangePasswordModalShow] = useState(false);
 
-  const [orders, setOrders] = useState([]);
+  const [transactions, setTransactions] = useState([]);
 
   const handlePicture = (e) => {
     var bodyForm = new FormData();
@@ -40,7 +40,7 @@ const ProfileContent = ({ state }) => {
     const getOrder = async () => {
       try {
         const result = await API.get("/transactions/order");
-        setOrders(result.data.data);
+        setTransactions(result.data.data);
       } catch (error) {
         console.log(error.response);
       }
@@ -49,7 +49,7 @@ const ProfileContent = ({ state }) => {
     getOrder();
   }, []);
 
-  console.log(orders);
+  console.log("transactions", transactions);
 
   return (
     <div className={styles.content}>
@@ -100,9 +100,7 @@ const ProfileContent = ({ state }) => {
       <div className={styles.rightContent}>
         <h3 className={styles.contentTitle}>My Transaction</h3>
         <div className={styles.transactionData}>
-          {orders.map((order) => {
-            <OrderCard order={order} />;
-          })}
+          <OrderCard transactionsCustomer={transactions} />
         </div>
       </div>
     </div>
