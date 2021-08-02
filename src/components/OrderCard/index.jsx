@@ -24,6 +24,7 @@ const OrderCard = ({
 
   return (
     <>
+      {/* Dipakai di owner content */}
       {transactionOwner &&
         transactionOwner.TransactionProducts.map((product) => {
           return (
@@ -110,6 +111,7 @@ const OrderCard = ({
         </>
       )}
 
+      {/* Dipakai di profile content */}
       {transactionsCustomer && (
         <>
           <TransactionDetailModal
@@ -131,8 +133,12 @@ const OrderCard = ({
                   setFocusTransaction(transaction);
                 }}
               >
+                {console.log(
+                  transaction.id,
+                  transaction.TransactionProducts[0].photo
+                )}
                 <img
-                  src={`http://localhost:8080/${transaction.TransactionProducts[0].photo}`}
+                  src={`http://localhost:8080/${transaction.TransactionProducts[0]?.photo}`}
                   alt="order"
                   className={styles.cardItemImage}
                 />

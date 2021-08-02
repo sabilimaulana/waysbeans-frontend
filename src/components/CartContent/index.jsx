@@ -136,9 +136,15 @@ const CartContent = ({ cartProps }) => {
           <p className={styles.total}>{convertToRupiah(totalPrice)}</p>
         </div>
 
-        <button className={styles.checkoutButton} onClick={handleCheckout}>
-          Proceed To Checkout
-        </button>
+        {carts.length > 0 ? (
+          <button className={styles.checkoutButton} onClick={handleCheckout}>
+            Proceed To Checkout
+          </button>
+        ) : (
+          <button className={styles.checkoutButtonDisabled} disabled>
+            Proceed To Checkout
+          </button>
+        )}
       </div>
     </div>
   );

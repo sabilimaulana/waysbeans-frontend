@@ -6,10 +6,8 @@ const PayPopup = ({ showModal, onHide }) => {
       <>
         <div className={styles.container}>
           <p className={styles.paragraph}>
-            Pembayaran Anda Akan di Konfirmasi dalam 1 x 24 Jam Untuk melihat
-            pesanan Klik{" "}
-            <button onClick={() => window.location.reload()}>Disini</button>{" "}
-            Terimakasih
+            Thank you for ordering in us, please wait 1 x 24 hours to verify you
+            order
           </p>
         </div>
         <div className={styles.background} onClick={onHide}></div>

@@ -80,7 +80,6 @@ const OwnerContent = () => {
 
   //   getUser();
   // }, [dispatch]);
-  console.log(transactions);
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Income Transaction</h1>
@@ -100,7 +99,6 @@ const OwnerContent = () => {
         <tbody>
           {transactions.length > 0 ? (
             transactions.map((transaction, index, array) => {
-              console.log("transaction", transaction);
               return (
                 <tr key={transaction.id}>
                   <td>{index + 1}</td>

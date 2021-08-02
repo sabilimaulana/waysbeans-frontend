@@ -100,7 +100,9 @@ const ProfileContent = ({ state }) => {
       <div className={styles.rightContent}>
         <h3 className={styles.contentTitle}>My Transaction</h3>
         <div className={styles.transactionData}>
-          <OrderCard transactionsCustomer={transactions} />
+          {transactions.length > 0 && (
+            <OrderCard transactionsCustomer={transactions} />
+          )}
         </div>
       </div>
     </div>

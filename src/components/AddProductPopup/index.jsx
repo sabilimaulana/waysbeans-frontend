@@ -5,7 +5,7 @@ const AddProductPopup = ({ showModal, onHide }) => {
     showModal && (
       <>
         <div className={styles.container}>
-          <p className={styles.paragraph}>Add new product successfully</p>
+          <p className={styles.paragraph}>Success Add Product</p>
         </div>
         <div className={styles.background} onClick={onHide}></div>
       </>

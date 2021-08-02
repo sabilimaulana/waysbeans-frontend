@@ -75,7 +75,7 @@ const AddProductContent = () => {
   };
   const handleCloseFirstImage = () => {
     setFirstImage("");
-    setRawFirstImage("");
+    setRawFirstImage();
     setIsFirstImageUploaded(false);
   };
 
@@ -143,6 +143,7 @@ const AddProductContent = () => {
             <input
               type="file"
               accept=".jpeg,.jpg,.png,.svg"
+              onClick={(e) => (e.target.value = null)}
               onChange={handleFirstImage}
               ref={fileInput}
               style={{ display: "none" }}

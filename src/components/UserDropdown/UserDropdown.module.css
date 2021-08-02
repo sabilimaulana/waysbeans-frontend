@@ -21,7 +21,7 @@
   z-index: 9;
 
   width: 295px;
-  height: 327px;
+  /* height: 327px; */
 
   padding: 21px 23px;
 
@@ -60,6 +60,13 @@
   padding: 10px;
 }
 
+.dropdownMenuWrapper:not(:nth-child(2)) {
+  margin-top: 17px;
+}
+.dropdownMenuWrapper:last-child {
+  margin-bottom: 0;
+}
+
 .dropdownMenuWrapper:hover {
   background-color: rgba(196, 196, 196, 0.25);
   cursor: pointer;
@@ -73,9 +80,11 @@
 }
 
 .divider {
-  position: absolute;
+  /* position: absolute;
   bottom: 83px;
-  left: 0;
+  left: 0; */
+
+  margin-left: -23px;
 
   border: 1px solid #a8a8a8;
   width: 295px;

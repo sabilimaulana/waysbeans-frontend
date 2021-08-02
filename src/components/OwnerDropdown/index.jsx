@@ -1,10 +1,9 @@
 import styles from "./OwnerDropdown.module.css";
 
-// import triangle from "../../assets/images/white-triangle.svg";
-// import userIcon from "../../assets/images/user-icon.svg";
-// import propertyIcon from "../../assets/images/property-icon.svg";
-// import billIcon from "../../assets/images/bill-icon.svg";
-// import logoutIcon from "../../assets/images/logout-icon.svg";
+import triangle from "../../assets/triangle.svg";
+import logoutIcon from "../../assets/logout.svg";
+import addProduct from "../../assets/add-product.svg";
+
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { useHistory } from "react-router-dom";
@@ -28,27 +27,11 @@ const OwnerDropdown = ({ showDropdown, onHide }) => {
     showDropdown && (
       <>
         <div className={styles.dropdownWrapper}>
-          {/* <img
+          <img
             src={triangle}
             alt="backflip triangle"
             className={styles.triangle}
-          /> */}
-
-          <div
-            className={styles.dropdownMenuWrapper}
-            onClick={() => {
-              router.push("/me");
-              onHide();
-            }}
-          >
-            {/* <img
-              className={styles.menuIcon}
-              src={userIcon}
-              alt="user icon"
-              width="40px"
-            /> */}
-            <p className={styles.menuText}>Profile</p>
-          </div>
+          />
 
           <div
             className={styles.dropdownMenuWrapper}
@@ -57,39 +40,23 @@ const OwnerDropdown = ({ showDropdown, onHide }) => {
               onHide();
             }}
           >
-            {/* <img
+            <img
               className={styles.menuIcon}
-              src={propertyIcon}
+              src={addProduct}
               alt="property icon"
               width="40px"
-            /> */}
+            />
             <p className={styles.menuText}>Add Product</p>
-          </div>
-
-          <div
-            className={styles.dropdownMenuWrapper}
-            onClick={() => {
-              router.push("/my-history");
-              onHide();
-            }}
-          >
-            {/* <img
-              className={styles.menuIcon}
-              src={billIcon}
-              alt="bill icon"
-              width="40px"
-            /> */}
-            <p className={styles.menuText}>History</p>
           </div>
 
           <p className={styles.divider}></p>
           <div className={styles.dropdownMenuWrapper} onClick={handleLogout}>
-            {/* <img
+            <img
               className={styles.menuIcon}
               src={logoutIcon}
               alt="logout icon"
               width="40px"
-            /> */}
+            />
             <p className={styles.menuText}>Logout</p>
           </div>
         </div>

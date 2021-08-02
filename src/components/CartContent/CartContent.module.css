@@ -175,7 +175,8 @@
   margin-top: 14px;
 }
 
-.checkoutButton {
+.checkoutButton,
+.checkoutButtonDisabled {
   width: 60%;
   height: 40px;
 
@@ -195,6 +196,11 @@
   cursor: pointer;
 
   border: none;
+}
+
+.checkoutButtonDisabled {
+  cursor: not-allowed;
+  background-color: grey;
 }
 
 .checkoutButton:hover {
