@@ -1,12 +1,11 @@
 import { useContext } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import { API } from "../../services/API";
 import { convertToRupiah } from "../../utils/moneyConvert";
 import styles from "./DetailProductContent.module.css";
 
 const DetailProductContent = ({ product }) => {
-  const router = useHistory();
   const { id } = useParams();
 
   const { state } = useContext(UserContext);
@@ -19,7 +18,7 @@ const DetailProductContent = ({ product }) => {
         orderQuantity: 1,
       });
 
-      router.push("/cart");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }

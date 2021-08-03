@@ -6,14 +6,18 @@ import { Redirect } from "react-router";
 import ProfileContent from "../components/ProfileContent";
 import { API, setAuthToken } from "../services/API";
 import Container from "../components/Container";
+import Loading from "../components/Loading";
 
 const Profile = () => {
   const { state, dispatch } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(true);
 
   useEffect(() => {
     const getUser = async () => {
       try {
+        setLoading(true);
+
         const token = sessionStorage.getItem("token");
         if (token) {
           setAuthToken(token);
@@ -24,12 +28,13 @@ const Profile = () => {
               user: user.data.data.user,
             },
           });
-          console.log("profile", user);
+          setError(false);
         }
         setLoading(false);
       } catch (error) {
-        setLoading(false);
         console.log(error.response);
+        setLoading(false);
+        setError(true);
       }
     };
 
@@ -37,7 +42,11 @@ const Profile = () => {
   }, [dispatch]);
 
   if (loading) {
-    return <p>loading</p>;
+    return <Loading />;
+  }
+
+  if (error) {
+    return <h1>Error</h1>;
   }
 
   if (state.isLogin) {

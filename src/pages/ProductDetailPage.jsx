@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Container from "../components/Container";
 import DetailProductContent from "../components/DetailProductContent";
-import { API } from "../services/API";
+import { UserContext } from "../contexts/UserContext";
+import { API, setAuthToken } from "../services/API";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
+
+  const { dispatch } = useContext(UserContext);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -25,8 +28,33 @@ const ProductDetailPage = () => {
       }
     };
 
+    const getUser = async () => {
+      try {
+        setLoading(true);
+
+        const token = sessionStorage.getItem("token");
+        if (token) {
+          setAuthToken(token);
+          const user = await API.get("/user/profile");
+          dispatch({
+            type: "LOGIN",
+            payload: {
+              user: user.data.data.user,
+            },
+          });
+          setLoading(false);
+          setError(false);
+        }
+      } catch (error) {
+        console.log(error.response);
+        setLoading(false);
+        setError(true);
+      }
+    };
+
+    getUser();
     getProduct();
-  }, [id]);
+  }, [id, dispatch]);
 
   return (
     <>

@@ -1,13 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import CartContent from "../components/CartContent";
 import Container from "../components/Container";
+import Loading from "../components/Loading";
 import { UserContext } from "../contexts/UserContext";
 import { API, setAuthToken } from "../services/API";
 
 const CartPage = () => {
-  const router = useHistory();
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [carts, setCarts] = useState([]);
@@ -17,6 +16,8 @@ const CartPage = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
+        setLoading(true);
+
         const token = sessionStorage.getItem("token");
         if (token) {
           setAuthToken(token);
@@ -27,22 +28,21 @@ const CartPage = () => {
               user: user.data.data.user,
             },
           });
+          setError(false);
         }
+        setLoading(false);
       } catch (error) {
         console.log(error.response);
+        setLoading(false);
+        setError(true);
       }
     };
 
     const getCart = async () => {
       try {
-        setLoading(true);
         const result = await API.get("/carts");
         setCarts(result.data.data);
-        setLoading(false);
-        setError(false);
       } catch (error) {
-        setLoading(false);
-        setError(true);
         console.log(error.response);
       }
     };
@@ -51,19 +51,24 @@ const CartPage = () => {
     getCart();
   }, [dispatch]);
 
-  return (
-    <>
-      {loading && <h3>Loading</h3>}
-      {error && <h3>Error</h3>}
-      {!loading && (
-        <>
-          <Container>
-            <CartContent cartProps={carts} />
-          </Container>
-        </>
-      )}
-    </>
-  );
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <h1>Error</h1>;
+  }
+
+  if (state.user.listAs === "Customer") {
+    return (
+      <Container>
+        <CartContent cartProps={carts} />
+      </Container>
+    );
+  } else {
+    // return <h1>Loading</h1>;
+    return <Redirect to="/" />;
+  }
 };
 
 export default CartPage;

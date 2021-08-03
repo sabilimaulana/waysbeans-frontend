@@ -1,17 +1,14 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./AddProductContent.module.css";
 // import folderIcon from "../../assets/images/folder-icon.svg";
 import paperClip from "../../assets/paper-clip.svg";
 import closeIcon from "../../assets/close-icon.svg";
-import { UserContext } from "../../contexts/UserContext";
 import { API } from "../../services/API";
 import AddProductPopup from "../AddProductPopup";
 import { useHistory } from "react-router";
 
 const AddProductContent = () => {
   const router = useHistory();
-
-  const { state } = useContext(UserContext);
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -45,7 +42,7 @@ const AddProductContent = () => {
       bodyForm.append("description", description);
       bodyForm.append("photo", rawFirstImage);
 
-      const result = await API({
+      await API({
         method: "POST",
         url: "/product",
         headers: {

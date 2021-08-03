@@ -10,10 +10,10 @@ import PayPopup from "../PayPopup";
 import { useHistory } from "react-router-dom";
 
 const CheckoutContent = ({ cartsProps }) => {
-  const [carts, setCarts] = useState();
+  const [carts, setCarts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const { dispatch, state } = useContext(UserContext);
+  const { state } = useContext(UserContext);
   const [showPopup, setShowPopup] = useState(false);
 
   const fileInput = useRef(null);
@@ -88,7 +88,7 @@ const CheckoutContent = ({ cartsProps }) => {
 
       bodyForm.append("userId", state.user.id);
 
-      const result = await API({
+      await API({
         method: "POST",
         url: "/transaction",
         headers: {
@@ -110,20 +110,17 @@ const CheckoutContent = ({ cartsProps }) => {
 
     let total = 0;
 
-    newCarts.map((cart) => {
-      total += +cart.Product.price * +cart.orderQuantity;
-    });
+    newCarts.map(
+      (cart) => (total += +cart.Product.price * +cart.orderQuantity)
+    );
 
     setTotalPrice(total);
   };
 
   useEffect(() => {
-    setCarts(cartsProps);
-    getTotalPrice(cartsProps);
+    setCarts(cartsProps ? cartsProps : []);
+    getTotalPrice(cartsProps ? cartsProps : []);
   }, [cartsProps]);
-
-  console.log("carts", carts);
-  console.log("cartsprops", cartsProps);
 
   return (
     <>

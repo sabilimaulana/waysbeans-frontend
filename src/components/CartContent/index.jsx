@@ -7,8 +7,6 @@ import styles from "./CartContent.module.css";
 
 const CartContent = ({ cartProps }) => {
   const [carts, setCarts] = useState([]);
-  const [loading, setLoading] = useState();
-  const [error, setError] = useState();
 
   const router = useHistory();
 
@@ -53,9 +51,9 @@ const CartContent = ({ cartProps }) => {
 
     let total = 0;
 
-    newCarts.map((cart) => {
-      total += +cart.Product.price * +cart.orderQuantity;
-    });
+    newCarts.map(
+      (cart) => (total += +cart.Product.price * +cart.orderQuantity)
+    );
 
     setTotalPrice(total);
   };

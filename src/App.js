@@ -1,12 +1,9 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { FilterContextProvider } from "./contexts/FilterContext";
-import UserContextProvider, { UserContext } from "./contexts/UserContext";
+import UserContextProvider from "./contexts/UserContext";
 import HomePage from "./pages/HomePage";
 import ProductDetailPage from "./pages/ProductDetailPage";
-import { useContext, useEffect } from "react";
-import { API, setAuthToken } from "./services/API";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import Profile from "./pages/ProfilePage";

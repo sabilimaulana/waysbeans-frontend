@@ -1,12 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-// import ActionModal from "../ActionModal";
 import styles from "./OwnerContent.module.css";
-// import glassIcon from "../../assets/images/glass-icon.svg";
-import axios from "axios";
 import { UserContext } from "../../contexts/UserContext";
 import { API } from "../../services/API";
 import TransactionDetailModal from "../TransactionDetailModal";
-// import billIcon from "../../assets/images/bill2-icon.svg";
 
 const OwnerContent = () => {
   const [detailTransactionModalShow, setDetailTransactionModalShow] =
@@ -43,15 +39,8 @@ const OwnerContent = () => {
   useEffect(() => {
     const getOrder = async () => {
       try {
-        const token = sessionStorage.getItem("token");
-        // const result = await axios.get(
-        //   `http://localhost:8080/api/v1/transactions/${state.user.id}`,
-        //   { headers: { Authorization: `Bearer ${token}` } }
-        // );
-
         const result = await API.get(`/transactions/`);
         setTransactions(result.data.data);
-        // console.log(result.data.data);
       } catch (error) {
         console.log(error.response);
       }
@@ -60,26 +49,6 @@ const OwnerContent = () => {
     getOrder();
   }, [state.user.id]);
 
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const token = sessionStorage.getItem("token");
-  //     if (token) {
-  //       const user = await axios.get(
-  //         "http://localhost:8080/api/v1/user/profile",
-  //         { headers: { Authorization: `Bearer ${token}` } }
-  //       );
-
-  //       dispatch({
-  //         type: "LOGIN",
-  //         payload: {
-  //           user: user.data.data,
-  //         },
-  //       });
-  //     }
-  //   };
-
-  //   getUser();
-  // }, [dispatch]);
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Income Transaction</h1>
@@ -149,7 +118,7 @@ const OwnerContent = () => {
             })
           ) : (
             <tr>
-              <td colSpan="6" style={{ textAlign: "center" }}>
+              <td colSpan="7" style={{ textAlign: "center" }}>
                 Belum ada data
               </td>
             </tr>

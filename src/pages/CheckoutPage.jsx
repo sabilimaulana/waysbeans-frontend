@@ -1,74 +1,24 @@
 import { useContext, useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import CheckoutContent from "../components/CheckoutContent";
 import Container from "../components/Container";
-import PayPopup from "../components/PayPopup";
+import Loading from "../components/Loading";
 import { UserContext } from "../contexts/UserContext";
 import { API, setAuthToken } from "../services/API";
-import { convertToRupiah } from "../utils/moneyConvert";
 
 const CheckoutPage = () => {
-  // const { id } = useParams();
   const [carts, setCarts] = useState();
-  const [rawAttachment, setRawAttachment] = useState();
 
-  //input
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [warning, setWarning] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  const [showPopup, setShowPopup] = useState(false);
-
-  const router = useHistory();
-
-  const { dispatch, state } = useContext(UserContext);
-
-  // const handlePay = async (e) => {
-  //   try {
-  //     e.preventDefault();
-
-  //     if (!name || !email || !phone || !address || !zipCode) {
-  //       setWarning("Please fill all field");
-  //     }
-  //     var bodyForm = new FormData();
-
-  //     bodyForm.append("name", name);
-  //     bodyForm.append("email", email);
-  //     bodyForm.append("address", address);
-  //     bodyForm.append("zipCode", zipCode);
-
-  //     bodyForm.append("phone", phone);
-  //     bodyForm.append("total", +cart.orderQuantity * +cart.Product.price);
-  //     bodyForm.append("orderQuantity", cart.orderQuantity);
-
-  //     bodyForm.append("userId", state.user.id);
-  //     bodyForm.append("productId", cart.productId);
-
-  //     bodyForm.append("attachment", rawAttachment);
-
-  //     const result = await API({
-  //       method: "POST",
-  //       url: "/transaction",
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //       data: bodyForm,
-  //     });
-
-  //     // router.push("/");
-  //     setShowPopup(!showPopup);
-  //     setWarning("");
-  //   } catch (error) {
-  //     console.log(error.response);
-  //   }
-  // };
+  const { state, dispatch } = useContext(UserContext);
 
   useEffect(() => {
     const getUser = async () => {
       try {
+        setLoading(true);
+
         const token = sessionStorage.getItem("token");
         if (token) {
           setAuthToken(token);
@@ -79,9 +29,13 @@ const CheckoutPage = () => {
               user: user.data.data.user,
             },
           });
+          setError(false);
         }
+        setLoading(false);
       } catch (error) {
         console.log(error.response);
+        setLoading(false);
+        setError(true);
       }
     };
 
@@ -90,7 +44,6 @@ const CheckoutPage = () => {
         const result = await API.get(`/carts/`);
 
         setCarts(result.data.data);
-        // console.log(result.data.data);
       } catch (error) {
         console.log(error.response);
       }
@@ -100,25 +53,22 @@ const CheckoutPage = () => {
     getCart();
   }, [dispatch]);
 
-  console.log("cartparent", carts);
+  if (loading) {
+    return <Loading />;
+  }
 
-  if (carts) {
+  if (error) {
+    return <h1>Error</h1>;
+  }
+
+  if (state.user.listAs === "Customer") {
     return (
-      <>
-        <Container>
-          <CheckoutContent cartsProps={carts} />
-        </Container>
-        <PayPopup
-          showModal={showPopup}
-          onHide={() => {
-            setShowPopup(false);
-            router.push("/");
-          }}
-        />
-      </>
+      <Container>
+        <CheckoutContent cartsProps={carts} />
+      </Container>
     );
   } else {
-    return <h3>404</h3>;
+    return <Redirect to="/" />;
   }
 };
 

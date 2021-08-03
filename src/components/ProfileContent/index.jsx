@@ -9,8 +9,6 @@ import { API } from "../../services/API";
 import OrderCard from "../OrderCard";
 
 const ProfileContent = ({ state }) => {
-  const [changePasswordModalShow, setChangePasswordModalShow] = useState(false);
-
   const [transactions, setTransactions] = useState([]);
 
   const handlePicture = (e) => {

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import Container from "../components/Container";
 import HomeContent from "../components/HomeContent";
+import Loading from "../components/Loading";
 import OwnerContent from "../components/OwnerContent";
 import { UserContext } from "../contexts/UserContext";
 import { API, setAuthToken } from "../services/API";
@@ -27,27 +27,78 @@ const HomePage = () => {
       }
     };
 
-    getProducts();
-  }, [state]);
+    const getUser = async () => {
+      try {
+        setLoading(true);
 
-  // console.log(products);
-  console.log("homestate", state);
-  // console.log("title", state.user.listAs);
-  if (state.isLogin) {
-    console.log(state);
-    if (state.user.listAs === "Seller") {
-      return (
+        const token = sessionStorage.getItem("token");
+        if (token) {
+          setAuthToken(token);
+          const user = await API.get("/user/profile");
+          dispatch({
+            type: "LOGIN",
+            payload: {
+              user: user.data.data.user,
+            },
+          });
+          setLoading(false);
+          setError(false);
+        }
+      } catch (error) {
+        console.log(error.response);
+        setLoading(false);
+        setError(true);
+      }
+    };
+
+    getUser();
+    getProducts();
+  }, [dispatch]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <h1>Error</h1>;
+  }
+
+  if (state.user.listAs === "Seller") {
+    return (
+      <>
         <Container>
           <OwnerContent />
         </Container>
-      );
-    }
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Container>
+          <HomeContent products={products} />
+        </Container>
+      </>
+    );
   }
-  return (
-    <Container>
-      <HomeContent products={products} />
-    </Container>
-  );
+
+  // console.log(products);
+  // console.log("homestate", state);
+  // console.log("title", state.user.listAs);
+  // if (state.isLogin) {
+  //   console.log(state);
+  //   if (state.user.listAs === "Seller") {
+  //     return (
+  //       <Container>
+  //         <OwnerContent />
+  //       </Container>
+  //     );
+  //   }
+  // }
+  // return (
+  //   <Container>
+  //     <HomeContent products={products} />
+  //   </Container>
+  // );
 };
 
 export default HomePage;

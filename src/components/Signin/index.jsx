@@ -56,8 +56,8 @@ const Signin = ({ showModal, onHide, onHere }) => {
       }
     } catch (error) {
       console.log(error);
-      setWarning(error.response.data.message);
-      console.log(error.response.data);
+      setWarning(error.response?.data.message);
+      console.log(error.response?.data);
     }
   };
 

@@ -6,22 +6,17 @@ import brandIcon from "../../assets/brand-icon.svg";
 import manUser from "../../assets/man-user.png";
 import shoppingBasket from "../../assets/shopping-basket.svg";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Signin from "../Signin";
 import Signup from "../Signup";
 import UserDropdown from "../UserDropdown";
 import OwnerDropdown from "../OwnerDropdown";
 
 import { UserContext } from "../../contexts/UserContext";
-import FilterContext from "../../contexts/FilterContext";
 import { useHistory } from "react-router";
 
 const Navbar = () => {
   const { state } = useContext(UserContext);
-
-  const { filterDispatch } = useContext(FilterContext);
-
-  const [searchText, setSearchText] = useState("");
 
   const [signinModalShow, setSigninModalShow] = useState(false);
   const [signupModalShow, setSignupModalShow] = useState(false);
@@ -29,24 +24,6 @@ const Navbar = () => {
   const [ownerDropdownShow, setOwnerDropdownShow] = useState(false);
 
   const router = useHistory();
-
-  const handleSearch = (e) => {
-    setSearchText(e.target.value);
-  };
-
-  const handleSearchButton = (e) => {
-    e.preventDefault();
-
-    filterDispatch({
-      type: "FILTERIN",
-      payload: {
-        search: searchText,
-        isSearch: true,
-      },
-    });
-  };
-
-  // console.log(filterState);
 
   return (
     <nav className={styles.navbar}>
@@ -60,9 +37,6 @@ const Navbar = () => {
           }}
         />
       </a>
-      {/* <Link to="/">
-  
-      </Link> */}
 
       {state.isLogin ? (
         state.user.listAs === "Seller" ? (
@@ -100,6 +74,8 @@ const Navbar = () => {
               }}
               className={styles.cartIcon}
             />
+
+            <p>{state.user.cart.length}</p>
 
             <div
               className={styles.user}
