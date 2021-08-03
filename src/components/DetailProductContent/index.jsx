@@ -1,14 +1,32 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
-import { API } from "../../services/API";
+import { API, setAuthToken } from "../../services/API";
 import { convertToRupiah } from "../../utils/moneyConvert";
 import styles from "./DetailProductContent.module.css";
 
 const DetailProductContent = ({ product }) => {
   const { id } = useParams();
 
-  const { state } = useContext(UserContext);
+  const { state, dispatch } = useContext(UserContext);
+
+  const getUser = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      if (token) {
+        setAuthToken(token);
+        const user = await API.get("/user/profile");
+        dispatch({
+          type: "LOGIN",
+          payload: {
+            user: user.data.data.user,
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   const handleAddToCart = async () => {
     try {
@@ -18,7 +36,9 @@ const DetailProductContent = ({ product }) => {
         orderQuantity: 1,
       });
 
-      window.location.reload();
+      getUser();
+
+      // window.location.reload();
     } catch (error) {
       console.log(error);
     }

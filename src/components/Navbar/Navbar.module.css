@@ -123,3 +123,18 @@
   height: 30px;
   cursor: pointer;
 }
+
+.cartNumber {
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  line-height: 16px;
+  border-radius: 50%;
+  font-size: 12px;
+  background-color: #f13f3f;
+  color: white;
+
+  /* posisi */
+  margin-left: -30px;
+  margin-top: -10px;
+}

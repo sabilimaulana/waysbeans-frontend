@@ -206,3 +206,13 @@
 .checkoutButton:hover {
   background-color: var(--main-hover-button);
 }
+
+.trashIcon {
+  width: 20px;
+
+  cursor: pointer;
+}
+
+.trashIcon:hover {
+  transform: scale(1.1);
+}

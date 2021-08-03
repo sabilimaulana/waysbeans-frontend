@@ -75,7 +75,9 @@ const Navbar = () => {
               className={styles.cartIcon}
             />
 
-            <p>{state.user.cart.length}</p>
+            {state.user.cart.length > 0 && (
+              <p className={styles.cartNumber}>{state.user.cart.length}</p>
+            )}
 
             <div
               className={styles.user}

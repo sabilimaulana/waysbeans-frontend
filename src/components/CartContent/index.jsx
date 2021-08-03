@@ -1,16 +1,37 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { API } from "../../services/API";
+import { API, setAuthToken } from "../../services/API";
 import { convertToRupiah } from "../../utils/moneyConvert";
 import trash from "../../assets/trash.svg";
 import styles from "./CartContent.module.css";
+import { UserContext } from "../../contexts/UserContext";
 
 const CartContent = ({ cartProps }) => {
   const [carts, setCarts] = useState([]);
 
   const router = useHistory();
 
+  const { dispatch } = useContext(UserContext);
+
   const [totalPrice, setTotalPrice] = useState(0);
+
+  const getUser = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      if (token) {
+        setAuthToken(token);
+        const user = await API.get("/user/profile");
+        dispatch({
+          type: "LOGIN",
+          payload: {
+            user: user.data.data.user,
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   const handleQuantityMinus = async (index) => {
     try {
@@ -41,6 +62,7 @@ const CartContent = ({ cartProps }) => {
       const result = await API.delete(`/cart/${cartId}`);
       setCarts(result.data.dataAfterUpdated);
       getTotalPrice(result.data.dataAfterUpdated);
+      getUser();
     } catch (error) {
       console.log(error.response);
     }
@@ -116,8 +138,8 @@ const CartContent = ({ cartProps }) => {
                   <img
                     src={trash}
                     alt="trash"
-                    width="20"
                     onClick={() => handleDeleteCart(cart.id)}
+                    className={styles.trashIcon}
                   />
                 </div>
               </div>
