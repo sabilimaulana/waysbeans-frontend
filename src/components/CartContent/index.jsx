@@ -35,6 +35,10 @@ const CartContent = ({ cartProps }) => {
 
   const handleQuantityMinus = async (index) => {
     try {
+      if (+carts[index].orderQuantity === 1) {
+        handleDeleteCart(carts[index].id);
+      }
+
       const result = await API.patch(`/cart/${carts[index].id}`, {
         orderQuantity: +carts[index].orderQuantity - 1,
       });
