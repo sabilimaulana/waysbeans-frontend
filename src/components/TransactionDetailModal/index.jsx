@@ -2,9 +2,22 @@ import { useEffect } from "react";
 import styles from "./TransactionDetailModal.module.css";
 import OrderCard from "../OrderCard";
 import { convertToRupiah } from "../../utils/moneyConvert";
+import { API } from "../../services/API";
 
 const TransactionDetailModal = ({ showModal, onHide, transactionData }) => {
   // const [user, setUser] = useState({});
+
+  const handleComplete = async (transactionId) => {
+    try {
+      await API.patch(`/transaction/${transactionId}`, {
+        status: "Completed",
+      });
+
+      window.location.reload();
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   useEffect(() => {
     if (showModal) {
@@ -77,6 +90,17 @@ const TransactionDetailModal = ({ showModal, onHide, transactionData }) => {
                     <p>Total : </p>
                     <p>{`${convertToRupiah(transactionData.total)}`}</p>
                   </div>
+                  {transactionData.status === "On The Way" && (
+                    <div className={styles.dataSection}>
+                      <p>Is this transaction completed? </p>
+                      <button
+                        className={styles.buttonComplete}
+                        onClick={() => handleComplete(transactionData.id)}
+                      >
+                        Complete
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 <div className={styles.productsDetail}>

@@ -65,6 +65,15 @@
   line-height: 60px;
 }
 
+.tdAddress {
+  width: 500px;
+  height: 80px;
+  /* overflow-x: scroll; */
+  /* overflow: hidden; */
+  line-height: 30px !important;
+  text-align: justify;
+}
+
 .pending {
   color: #f7941e;
   font-weight: 600 !important;
@@ -77,6 +86,20 @@
 
 .cancel {
   color: #ff0742;
+  font-weight: 600 !important;
+}
+
+.onProcess {
+  color: #651fff;
+  font-weight: 600 !important;
+}
+
+.onTheWay {
+  color: #2fb6fd;
+  font-weight: 600 !important;
+}
+.completed {
+  color: #613d2b;
   font-weight: 600 !important;
 }
 
@@ -116,7 +139,9 @@
 }
 
 .buttonCancel,
-.buttonApprove {
+.buttonApprove,
+.buttonOnTheWay,
+.buttonComplete {
   width: 100px;
   height: 30px;
 
@@ -145,4 +170,18 @@
 }
 .buttonApprove:hover {
   background-color: rgba(10, 207, 131, 0.8);
+}
+
+.buttonOnTheWay {
+  background-color: #2fb6fd;
+}
+.buttonOnTheWay:hover {
+  background-color: rgba(47, 182, 253, 0.7);
+}
+
+.buttonComplete {
+  background-color: #613d2b;
+}
+.buttonComplete:hover {
+  background-color: rgba(97, 61, 43, 0.8);
 }

@@ -210,6 +210,18 @@ const OrderCard = ({
                         <div className={styles.statusCancel}>
                           <p>Cancel</p>
                         </div>
+                      ) : transaction.status === "On Process" ? (
+                        <div className={styles.statusOnProcess}>
+                          <p>{transaction.status}</p>
+                        </div>
+                      ) : transaction.status === "On The Way" ? (
+                        <div className={styles.statusOnTheWay}>
+                          <p>{transaction.status}</p>
+                        </div>
+                      ) : transaction.status === "Completed" ? (
+                        <div className={styles.statusCompleted}>
+                          <p>{transaction.status}</p>
+                        </div>
                       ) : (
                         <div className={styles.statusWaitingApprove}>
                           <p>{transaction.status}</p>

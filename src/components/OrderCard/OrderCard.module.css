@@ -116,7 +116,10 @@
 
 .statusSuccess,
 .statusWaitingApprove,
-.statusCancel {
+.statusCancel,
+.statusOnProcess,
+.statusOnTheWay,
+.statusCompleted {
   height: 100%;
   border-radius: 2px;
   display: flex;
@@ -137,4 +140,19 @@
 .statusCancel {
   color: #ff0742;
   background-color: rgba(255, 7, 66, 0.1);
+}
+
+.statusOnProcess {
+  color: #651fff;
+  background-color: rgba(101, 31, 255, 0.1);
+}
+
+.statusOnTheWay {
+  color: #2fb6fd;
+  background-color: rgba(47, 182, 253, 0.1);
+}
+
+.statusCompleted {
+  color: #613d2b;
+  background-color: rgba(97, 61, 43, 0.1);
 }

@@ -11,7 +11,7 @@ import Loading from "../components/Loading";
 const Profile = () => {
   const { state, dispatch } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {

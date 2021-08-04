@@ -15,7 +15,7 @@ const OwnerContent = () => {
   const handleApprove = async (transactionId) => {
     try {
       await API.patch(`/transaction/${transactionId}`, {
-        status: "Approved",
+        status: "On Process",
       });
 
       window.location.reload();
@@ -28,6 +28,30 @@ const OwnerContent = () => {
     try {
       await API.patch(`/transaction/${transactionId}`, {
         status: "Cancel",
+      });
+
+      window.location.reload();
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const handleOnTheWay = async (transactionId) => {
+    try {
+      await API.patch(`/transaction/${transactionId}`, {
+        status: "On The Way",
+      });
+
+      window.location.reload();
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const handleComplete = async (transactionId) => {
+    try {
+      await API.patch(`/transaction/${transactionId}`, {
+        status: "Completed",
       });
 
       window.location.reload();
@@ -70,9 +94,9 @@ const OwnerContent = () => {
             transactions.map((transaction, index, array) => {
               return (
                 <tr key={transaction.id}>
-                  <td>{index + 1}</td>
+                  <td>{array.length - index}</td>
                   <td>{transaction.User.fullname}</td>
-                  <td>{transaction.address}</td>
+                  <td className={styles.tdAddress}>{transaction.address}</td>
                   <td>{transaction.zipCode}</td>
 
                   <td>
@@ -86,15 +110,26 @@ const OwnerContent = () => {
                       Lihat Detail
                     </button>
                   </td>
-                  {transaction.status === "Waiting Approve" ? (
+
+                  {transaction.status === "Waiting Approve" && (
                     <td className={styles.pending}>Waiting Approve</td>
-                  ) : transaction.status === "Approved" ? (
-                    <td className={styles.approved}>Approved</td>
-                  ) : (
-                    transaction.status === "Cancel" && (
-                      <td className={styles.cancel}>Cancel</td>
-                    )
                   )}
+                  {transaction.status === "Approved" && (
+                    <td className={styles.approved}>Approved</td>
+                  )}
+                  {transaction.status === "Cancel" && (
+                    <td className={styles.cancel}>Cancel</td>
+                  )}
+                  {transaction.status === "On Process" && (
+                    <td className={styles.onProcess}>On Process</td>
+                  )}
+                  {transaction.status === "On The Way" && (
+                    <td className={styles.onTheWay}>On The Way</td>
+                  )}
+                  {transaction.status === "Completed" && (
+                    <td className={styles.completed}>Completed</td>
+                  )}
+
                   <td className={styles.tdAction}>
                     {transaction.status === "Waiting Approve" && (
                       <>
@@ -111,6 +146,24 @@ const OwnerContent = () => {
                           Approve
                         </button>
                       </>
+                    )}
+
+                    {transaction.status === "On Process" && (
+                      <button
+                        className={styles.buttonOnTheWay}
+                        onClick={() => handleOnTheWay(transaction.id)}
+                      >
+                        On The Way
+                      </button>
+                    )}
+
+                    {transaction.status === "On The Way" && (
+                      <button
+                        className={styles.buttonComplete}
+                        onClick={() => handleComplete(transaction.id)}
+                      >
+                        Complete
+                      </button>
                     )}
                   </td>
                 </tr>
