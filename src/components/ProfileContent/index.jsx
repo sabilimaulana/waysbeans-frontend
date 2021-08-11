@@ -26,7 +26,6 @@ const ProfileContent = ({ state }) => {
       data: bodyForm,
     })
       .then((response) => {
-        console.log(response);
         window.location.reload();
       })
       .catch((error) => {
@@ -46,8 +45,6 @@ const ProfileContent = ({ state }) => {
 
     getOrder();
   }, []);
-
-  console.log("transactions", transactions);
 
   return (
     <div className={styles.content}>

@@ -133,10 +133,6 @@ const OrderCard = ({
                   setFocusTransaction(transaction);
                 }}
               >
-                {console.log(
-                  transaction.id,
-                  transaction.TransactionProducts[0].photo
-                )}
                 <img
                   src={`http://localhost:8080/${transaction.TransactionProducts[0]?.photo}`}
                   alt="order"

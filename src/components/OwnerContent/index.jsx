@@ -64,7 +64,19 @@ const OwnerContent = () => {
     const getOrder = async () => {
       try {
         const result = await API.get(`/transactions/`);
-        setTransactions(result.data.data);
+
+        const transactionsData = result.data.data;
+
+        const newTransactions = transactionsData.filter((transaction) => {
+          if (
+            transaction.status === "Pending" ||
+            transaction.status === "Failed"
+          ) {
+            return false;
+          }
+          return true;
+        });
+        setTransactions(newTransactions);
       } catch (error) {
         console.log(error.response);
       }

@@ -72,8 +72,6 @@ const CheckoutContent = ({ cartsProps }) => {
         };
       });
 
-      console.log(products);
-
       var bodyForm = new FormData();
 
       bodyForm.append("name", name);
@@ -86,9 +84,10 @@ const CheckoutContent = ({ cartsProps }) => {
       bodyForm.append("products", JSON.stringify(products));
       bodyForm.append("total", totalPrice);
 
+      bodyForm.append("status", "Pending");
       bodyForm.append("userId", state.user.id);
 
-      await API({
+      const result = await API({
         method: "POST",
         url: "/transaction",
         headers: {
@@ -97,11 +96,37 @@ const CheckoutContent = ({ cartsProps }) => {
         data: bodyForm,
       });
 
+      const token = result.data.data.payment.token;
+
+      window.snap.pay(token, {
+        onSuccess: function () {
+          console.log("success");
+          setShowPopup(!showPopup);
+        },
+        onPending: function (result) {
+          console.log("pending");
+          console.log(result);
+        },
+        onError: function (result) {
+          console.log("error");
+          console.log(result);
+        },
+        onClose: async () => {
+          console.log(
+            "customer closed the popup without finishing the payment"
+          );
+          // console.log("onclose", result.data.data.transaction.id);
+          await API.patch(`/transaction/${result.data.data.transaction.id}`, {
+            status: "Cancel",
+          });
+          router.push("/me");
+        },
+      });
+
       // router.push("/");
-      setShowPopup(!showPopup);
       setWarning("");
     } catch (error) {
-      console.log(error.response);
+      console.log(error);
     }
   };
 
@@ -120,6 +145,21 @@ const CheckoutContent = ({ cartsProps }) => {
   useEffect(() => {
     setCarts(cartsProps ? cartsProps : []);
     getTotalPrice(cartsProps ? cartsProps : []);
+
+    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+
+    const midtransClientKey = process.env.REACT_APP_MIDTRANS_CLIENT_KEY;
+
+    let scriptTag = document.createElement("script");
+
+    scriptTag.src = midtransScriptUrl;
+    scriptTag.setAttribute("data-client-key", midtransClientKey);
+
+    document.body.appendChild(scriptTag);
+
+    return () => {
+      document.body.removeChild(scriptTag);
+    };
   }, [cartsProps]);
 
   return (
