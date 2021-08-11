@@ -36,7 +36,7 @@ const CartContent = ({ cartProps }) => {
   const handleQuantityMinus = async (index) => {
     try {
       if (+carts[index].orderQuantity === 1) {
-        handleDeleteCart(carts[index].id);
+        return;
       }
 
       const result = await API.patch(`/cart/${carts[index].id}`, {
@@ -72,6 +72,18 @@ const CartContent = ({ cartProps }) => {
     }
   };
 
+  const handleDeleteAllCart = async () => {
+    try {
+      carts.map(async (cart) => {
+        const result = await API.delete(`/cart/${cart.id}`);
+        setCarts(result.data.dataAfterUpdated);
+        getTotalPrice(result.data.dataAfterUpdated);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getTotalPrice = (carts) => {
     const newCarts = [...carts];
 
@@ -98,7 +110,15 @@ const CartContent = ({ cartProps }) => {
     <div className={styles.content}>
       <div className={styles.leftContent}>
         <h3 className={styles.leftContentTitle}>My Cart</h3>
-        <p className={styles.leftContentSubtitle}>Review Your Order</p>
+        <div className={styles.subtitleWrapper}>
+          <p className={styles.leftContentSubtitle}>Review Your Order</p>
+          <button
+            className={styles.deleteAllCart}
+            onClick={handleDeleteAllCart}
+          >
+            DELETE ALL
+          </button>
+        </div>
         <hr className={styles.horizontalLine} />
         {carts.map((cart, index) => {
           return (
