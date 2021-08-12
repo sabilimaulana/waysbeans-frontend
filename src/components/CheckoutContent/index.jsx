@@ -60,10 +60,15 @@ const CheckoutContent = ({ cartsProps }) => {
     try {
       e.preventDefault();
 
-      if (!name || !email || !phone || !address || !zipCode || !rawAttachment) {
+      if (!name || !email || !phone || !address || !zipCode) {
         setWarning("Please fill all field");
         return;
       }
+
+      // if (!name || !email || !phone || !address || !zipCode || !rawAttachment) {
+      //   setWarning("Please fill all field");
+      //   return;
+      // }
 
       const products = carts.map((cart) => {
         return {
@@ -79,7 +84,7 @@ const CheckoutContent = ({ cartsProps }) => {
       bodyForm.append("address", address);
       bodyForm.append("phone", phone);
       bodyForm.append("zipCode", zipCode);
-      bodyForm.append("attachment", rawAttachment);
+      // bodyForm.append("attachment", rawAttachment);
 
       bodyForm.append("products", JSON.stringify(products));
       bodyForm.append("total", totalPrice);
@@ -210,7 +215,7 @@ const CheckoutContent = ({ cartsProps }) => {
               onChange={(e) => setAddress(e.target.value)}
             ></textarea>
 
-            <div className={styles.inputFileWrapper}>
+            {/* <div className={styles.inputFileWrapper}>
               <input
                 type="text"
                 placeholder="Proof"
@@ -232,9 +237,9 @@ const CheckoutContent = ({ cartsProps }) => {
                 ref={fileInput}
                 style={{ display: "none" }}
               />
-            </div>
+            </div> */}
 
-            <div className={styles.attachmentPreview}>
+            {/* <div className={styles.attachmentPreview}>
               {isAttachmentUploaded && (
                 <>
                   <img
@@ -252,7 +257,7 @@ const CheckoutContent = ({ cartsProps }) => {
                   />
                 </>
               )}
-            </div>
+            </div> */}
           </form>
         </div>
         <div className={styles.rightContent}>

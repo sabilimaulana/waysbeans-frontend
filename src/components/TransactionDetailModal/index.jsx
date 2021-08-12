@@ -3,6 +3,7 @@ import styles from "./TransactionDetailModal.module.css";
 import OrderCard from "../OrderCard";
 import { convertToRupiah } from "../../utils/moneyConvert";
 import { API } from "../../services/API";
+import QRCode from "react-qr-code";
 
 const TransactionDetailModal = ({ showModal, onHide, transactionData }) => {
   // const [user, setUser] = useState({});
@@ -33,11 +34,19 @@ const TransactionDetailModal = ({ showModal, onHide, transactionData }) => {
         <div className={styles.modalContainer}>
           <div className={styles.modalContent}>
             <div className={styles.leftContent}>
-              <img
-                src={`http://localhost:8080/${transactionData.attachment}`}
-                alt="attachment"
-                className={styles.attachmentImage}
-              />
+              {transactionData.attachment ? (
+                <img
+                  src={`http://localhost:8080/${transactionData.attachment}`}
+                  alt="attachment"
+                  className={styles.attachmentImage}
+                />
+              ) : (
+                <QRCode
+                  value={`http://localhost:8080/api/v1/transaction/${transactionData.id}`}
+                  size={500}
+                  bgColor="#f7e6da"
+                />
+              )}
             </div>
             <div className={styles.rightContent}>
               <h2 className={styles.rightContentTitle}>Transaction Detail</h2>
