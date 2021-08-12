@@ -4,7 +4,7 @@ import HomeContent from "../components/HomeContent";
 import Loading from "../components/Loading";
 import OwnerContent from "../components/OwnerContent";
 import { UserContext } from "../contexts/UserContext";
-import { API, setAuthToken, SERVER_URL } from "../services/API";
+import { API, setAuthToken } from "../services/API";
 
 const HomePage = () => {
   const [loading, setLoading] = useState(false);

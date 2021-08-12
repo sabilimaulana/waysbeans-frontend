@@ -1,7 +1,9 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+// import { useContext, useEffect, useRef, useState } from "react";
+
 import styles from "./CheckoutContent.module.css";
-import paperClip from "../../assets/paper-clip.svg";
-import closeIcon from "../../assets/close-icon.svg";
+// import paperClip from "../../assets/paper-clip.svg";
+// import closeIcon from "../../assets/close-icon.svg";
 import OrderCard from "../OrderCard";
 import { convertToRupiah } from "../../utils/moneyConvert";
 import { UserContext } from "../../contexts/UserContext";
@@ -16,13 +18,13 @@ const CheckoutContent = ({ cartsProps }) => {
   const { state } = useContext(UserContext);
   const [showPopup, setShowPopup] = useState(false);
 
-  const fileInput = useRef(null);
+  // const fileInput = useRef(null);
 
   const router = useHistory();
 
-  const [rawAttachment, setRawAttachment] = useState();
-  const [attachment, setAttachment] = useState();
-  const [isAttachmentUploaded, setIsAttachmentUploaded] = useState();
+  // const [rawAttachment, setRawAttachment] = useState();
+  // const [attachment, setAttachment] = useState();
+  // const [isAttachmentUploaded, setIsAttachmentUploaded] = useState();
 
   //input
   const [name, setName] = useState("");
@@ -32,23 +34,23 @@ const CheckoutContent = ({ cartsProps }) => {
   const [zipCode, setZipCode] = useState("");
   const [warning, setWarning] = useState("");
 
-  const handleAttachment = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      let reader = new FileReader();
+  // const handleAttachment = (e) => {
+  //   if (e.target.files && e.target.files[0]) {
+  //     let reader = new FileReader();
 
-      reader.onload = (e) => {
-        setAttachment(e.target.result);
-        setIsAttachmentUploaded(true);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-      setRawAttachment(e.target.files[0]);
-    }
-  };
-  const handleCloseAttachment = () => {
-    setAttachment("");
-    setRawAttachment("");
-    setIsAttachmentUploaded(false);
-  };
+  //     reader.onload = (e) => {
+  //       setAttachment(e.target.result);
+  //       setIsAttachmentUploaded(true);
+  //     };
+  //     reader.readAsDataURL(e.target.files[0]);
+  //     setRawAttachment(e.target.files[0]);
+  //   }
+  // };
+  // const handleCloseAttachment = () => {
+  //   setAttachment("");
+  //   setRawAttachment("");
+  //   setIsAttachmentUploaded(false);
+  // };
 
   const handlePress = (e) => {
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {

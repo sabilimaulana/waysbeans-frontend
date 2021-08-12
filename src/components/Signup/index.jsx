@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./Signup.module.css";
-import axios from "axios";
 import { API, setAuthToken } from "../../services/API";
 import { UserContext } from "../../contexts/UserContext";
 
