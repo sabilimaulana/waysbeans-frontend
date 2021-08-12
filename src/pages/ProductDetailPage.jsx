@@ -4,6 +4,7 @@ import Container from "../components/Container";
 import DetailProductContent from "../components/DetailProductContent";
 import { UserContext } from "../contexts/UserContext";
 import { API, setAuthToken } from "../services/API";
+import Loading from "../components/Loading";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -58,7 +59,7 @@ const ProductDetailPage = () => {
 
   return (
     <>
-      {loading && <p>loading</p>}
+      {loading && <Loading />}
       {error && <p>error</p>}
 
       {product.name && (

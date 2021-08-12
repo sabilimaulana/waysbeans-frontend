@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import styles from "./TransactionDetailModal.module.css";
 import OrderCard from "../OrderCard";
 import { convertToRupiah } from "../../utils/moneyConvert";
-import { API } from "../../services/API";
+import { API, SERVER_URL } from "../../services/API";
 import QRCode from "react-qr-code";
 
 const TransactionDetailModal = ({ showModal, onHide, transactionData }) => {
@@ -36,13 +36,13 @@ const TransactionDetailModal = ({ showModal, onHide, transactionData }) => {
             <div className={styles.leftContent}>
               {transactionData.attachment ? (
                 <img
-                  src={`http://localhost:8080/${transactionData.attachment}`}
+                  src={`${SERVER_URL}/${transactionData.attachment}`}
                   alt="attachment"
                   className={styles.attachmentImage}
                 />
               ) : (
                 <QRCode
-                  value={`http://localhost:8080/api/v1/transaction/${transactionData.id}`}
+                  value={`${SERVER_URL}/api/v1/transaction/${transactionData.id}`}
                   size={500}
                   bgColor="#f7e6da"
                 />

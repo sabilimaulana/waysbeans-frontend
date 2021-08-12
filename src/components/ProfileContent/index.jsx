@@ -1,11 +1,8 @@
 import styles from "./ProfileContent.module.css";
-
 import mailIcon from "../../assets/profile/mail-icon.svg";
-
 import manUser from "../../assets/man-user.png";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { API } from "../../services/API";
+import { API, SERVER_URL } from "../../services/API";
 import OrderCard from "../OrderCard";
 
 const ProfileContent = ({ state }) => {
@@ -16,9 +13,9 @@ const ProfileContent = ({ state }) => {
 
     const token = sessionStorage.getItem("token");
     bodyForm.append("profilePicture", e.target.files[0]);
-    axios({
+    API({
       method: "PATCH",
-      url: "http://localhost:8080/api/v1/user/profile-picture/",
+      url: "/user/profile-picture/",
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
@@ -61,7 +58,7 @@ const ProfileContent = ({ state }) => {
             ) : (
               <img
                 className={styles.profileImage}
-                src={`http://localhost:8080/${state.user.photo}`}
+                src={`${SERVER_URL}/${state.user.photo}`}
                 alt="profile"
               />
             )}

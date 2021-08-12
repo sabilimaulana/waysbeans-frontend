@@ -285,7 +285,7 @@ const CheckoutContent = ({ cartsProps }) => {
         showModal={showPopup}
         onHide={() => {
           setShowPopup(false);
-          router.push("/");
+          router.push("/me");
         }}
       />
     </>

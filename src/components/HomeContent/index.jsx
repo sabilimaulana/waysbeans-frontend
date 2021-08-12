@@ -2,6 +2,7 @@ import styles from "./HomeContent.module.css";
 import { convertToRupiah } from "../../utils/moneyConvert";
 import jumbotron from "../../assets/jumbotron.svg";
 import { useHistory } from "react-router";
+import coffeBeanIcon from "../../assets/coffee-bean.png";
 
 const HomeContent = ({ products }) => {
   // const { state, dispatch } = useContext(UserContext);
@@ -11,6 +12,8 @@ const HomeContent = ({ products }) => {
   const handleClickProduct = (id) => {
     router.push(`/product-detail/${id}`);
   };
+
+  console.log(coffeBeanIcon);
 
   return (
     <div className={styles.homeContent}>
@@ -30,7 +33,14 @@ const HomeContent = ({ products }) => {
               }}
               key={product.id}
             >
-              <img src={product.photo} alt="product" />
+              <img
+                src={product.photo}
+                alt="product"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = coffeBeanIcon;
+                }}
+              />
               <div className={styles.cartContent}>
                 <p className={styles.productName}>
                   {product.name.toUpperCase()} Beans

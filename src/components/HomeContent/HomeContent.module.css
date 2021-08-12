@@ -21,6 +21,7 @@
   cursor: pointer;
   margin-bottom: 40px;
   min-width: 245px;
+  min-height: 419px;
   transition: 300ms;
 }
 
@@ -32,6 +33,8 @@
 .cardItem img {
   width: 100%;
   height: 315px;
+
+  min-height: 315px;
 
   object-fit: cover;
 }

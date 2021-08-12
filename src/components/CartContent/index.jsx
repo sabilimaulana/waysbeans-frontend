@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { API, setAuthToken } from "../../services/API";
+import { API, SERVER_URL, setAuthToken } from "../../services/API";
 import { convertToRupiah } from "../../utils/moneyConvert";
 import trash from "../../assets/trash.svg";
 import styles from "./CartContent.module.css";
 import { UserContext } from "../../contexts/UserContext";
+import coffeBeanIcon from "../../assets/coffee-bean.png";
 
 const CartContent = ({ cartProps }) => {
   const [carts, setCarts] = useState([]);
@@ -126,9 +127,13 @@ const CartContent = ({ cartProps }) => {
               <div className={styles.cardItem}>
                 <div className={styles.cardItemLeft}>
                   <img
-                    src={`http://localhost:8080/${cart.Product.photo}`}
+                    src={`${SERVER_URL}/${cart.Product.photo}`}
                     alt="product"
                     className={styles.cardImage}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = coffeBeanIcon;
+                    }}
                   />
                   <div className={styles.cartContent}>
                     <p className={styles.productName}>

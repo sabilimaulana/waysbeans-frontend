@@ -9,9 +9,11 @@ import brandIcon from "../../assets/brand-icon.svg";
 
 import styles from "./OrderCard.module.css";
 import QRCode from "react-qr-code";
+import coffeBeanIcon from "../../assets/coffee-bean.png";
 
 import TransactionDetailModal from "../TransactionDetailModal";
 import { useState } from "react";
+import { SERVER_URL } from "../../services/API";
 
 const OrderCard = ({
   orderCheckout,
@@ -30,9 +32,13 @@ const OrderCard = ({
           return (
             <div key={product.id} className={styles.cardItem}>
               <img
-                src={`http://localhost:8080/${product.photo}`}
+                src={`${SERVER_URL}/${product.photo}`}
                 alt="order"
                 className={styles.cardItemImage}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = coffeBeanIcon;
+                }}
               />
               <div className={styles.cardItemContent}>
                 <div className={styles.cardItemContentLeft}>
@@ -73,9 +79,13 @@ const OrderCard = ({
         <>
           <div key={orderCheckout.id} className={styles.cardItem}>
             <img
-              src={`http://localhost:8080/${orderCheckout.Product.photo}`}
+              src={`${SERVER_URL}/${orderCheckout.Product.photo}`}
               alt="order"
               className={styles.cardItemImage}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = coffeBeanIcon;
+              }}
             />
             <div className={styles.cardItemContent}>
               <div className={styles.cardItemContentLeft}>
@@ -134,9 +144,13 @@ const OrderCard = ({
                 }}
               >
                 <img
-                  src={`http://localhost:8080/${transaction.TransactionProducts[0]?.photo}`}
+                  src={`${SERVER_URL}/${transaction.TransactionProducts[0]?.photo}`}
                   alt="order"
                   className={styles.cardItemImage}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = coffeBeanIcon;
+                  }}
                 />
                 <div className={styles.cardItemContent}>
                   <div className={styles.cardItemContentLeft}>
@@ -191,7 +205,7 @@ const OrderCard = ({
                     <img src={brandIcon} alt="brand" width="73" />
                     <div className={styles.barcode}>
                       <QRCode
-                        value={`http://localhost:8080/api/v1/transaction/${transaction.id}`}
+                        value={`${SERVER_URL}/api/v1/transaction/${transaction.id}`}
                         size={60}
                         bgColor="#f7e6da"
                       />

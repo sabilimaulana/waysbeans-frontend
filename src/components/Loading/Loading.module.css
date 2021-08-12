@@ -12,8 +12,8 @@
   height: 50px;
   border-radius: 50%;
   border: 2px solid #fff;
-  border-top: 2px solid #5a57ab;
-  border-bottom: 2px solid #5a57ab;
+  border-top: 2px solid var(--main-font-color);
+  border-bottom: 2px solid var(--main-font-color);
   animation: anim9 1s linear infinite;
   position: relative;
   display: flex;
@@ -24,7 +24,8 @@
 .nine .center {
   width: 20px;
   height: 20px;
-  background-color: rgba(90, 87, 171, 0.6);
+  background-color: rgba(97, 61, 43, 0.6);
+
   position: absolute;
   border-radius: 50%;
   animation: scaleUp 1s linear infinite forwards;

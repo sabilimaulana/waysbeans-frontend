@@ -4,6 +4,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { API, setAuthToken } from "../../services/API";
 import { convertToRupiah } from "../../utils/moneyConvert";
 import styles from "./DetailProductContent.module.css";
+import coffeBeanIcon from "../../assets/coffee-bean.png";
 
 const DetailProductContent = ({ product }) => {
   const { id } = useParams();
@@ -50,6 +51,10 @@ const DetailProductContent = ({ product }) => {
         <img
           className={styles.productImage}
           src={product.photo}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = coffeBeanIcon;
+          }}
           alt="product"
         />
       </div>

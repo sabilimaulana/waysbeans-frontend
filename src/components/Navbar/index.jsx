@@ -14,6 +14,7 @@ import OwnerDropdown from "../OwnerDropdown";
 
 import { UserContext } from "../../contexts/UserContext";
 import { useHistory } from "react-router";
+import { SERVER_URL } from "../../services/API";
 
 const Navbar = () => {
   const { state } = useContext(UserContext);
@@ -52,9 +53,13 @@ const Navbar = () => {
               ) : (
                 <>
                   <img
-                    src={`http://localhost:8080/${state.user.photo}`}
+                    src={`${SERVER_URL}/${state.user.photo}`}
                     alt="user"
                     height="50px"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = manUser;
+                    }}
                   />
                 </>
               )}
@@ -90,9 +95,13 @@ const Navbar = () => {
               ) : (
                 <>
                   <img
-                    src={`http://localhost:8080/${state.user.photo}`}
+                    src={`${SERVER_URL}/${state.user.photo}`}
                     alt="user"
                     height="50px"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = manUser;
+                    }}
                   />
                 </>
               )}

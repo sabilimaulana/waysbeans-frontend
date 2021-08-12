@@ -52,15 +52,13 @@ const Signup = ({ showModal, onHide, onHere }) => {
 
     setSignupWarning(false);
 
-    axios
-      .post("http://localhost:8080/api/v1/register/", {
-        email,
-
-        password,
-        fullname,
-        listAs: "Customer",
-        // phone: phoneNumber,
-      })
+    API.post("/register/", {
+      email,
+      password,
+      fullname,
+      listAs: "Customer",
+      // phone: phoneNumber,
+    })
       .then(async (response) => {
         setFullname("");
         setEmail("");

@@ -4,7 +4,7 @@ import HomeContent from "../components/HomeContent";
 import Loading from "../components/Loading";
 import OwnerContent from "../components/OwnerContent";
 import { UserContext } from "../contexts/UserContext";
-import { API, setAuthToken } from "../services/API";
+import { API, setAuthToken, SERVER_URL } from "../services/API";
 
 const HomePage = () => {
   const [loading, setLoading] = useState(false);
@@ -80,25 +80,6 @@ const HomePage = () => {
       </>
     );
   }
-
-  // console.log(products);
-  // console.log("homestate", state);
-  // console.log("title", state.user.listAs);
-  // if (state.isLogin) {
-  //   console.log(state);
-  //   if (state.user.listAs === "Seller") {
-  //     return (
-  //       <Container>
-  //         <OwnerContent />
-  //       </Container>
-  //     );
-  //   }
-  // }
-  // return (
-  //   <Container>
-  //     <HomeContent products={products} />
-  //   </Container>
-  // );
 };
 
 export default HomePage;
